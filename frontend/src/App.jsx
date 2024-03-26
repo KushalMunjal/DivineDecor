@@ -1,10 +1,10 @@
-import { Home } from "~/pages/Home";
+import { Home } from "./pages/Home";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Layout from "~/pages/Layout";
+import Layout from "./pages/Layout";
 // import Cart from "~/pages/Cart";
 // import Login from "~/pages/Login";
-import { productsData } from "~/api/Api";
-import Product from "~/components/Product";
+// import { productsData } from "~/api/Api";
+import Product from "./components/ProductsCard";
 
 const router = createBrowserRouter([
   {
