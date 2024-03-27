@@ -2,7 +2,7 @@ import { PRODUCT_CARD } from "~/constants";
 import { BsArrowRight } from "react-icons/bs";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { addToCart } from "~/redux/ShopSlice";
+// import { addToCart } from "~/redux/ShopSlice";
 import { ToastContainer, toast } from "react-toastify";
 
 const ProductsCard = ({ product }) => {
