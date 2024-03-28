@@ -4,12 +4,13 @@ import Footer from './pages/footer/Footer'; // Adjust the path if needed
 import dummyData from './components/Product/dummydata';
 import ProductCard from './components/Product/Products'; // Adjust the path if needed
 import Login from './pages/login/login';
+import Home from './pages/home/home';
 
 function App() {
   return (
     <div className="App">
       <Navbar />
-      <Login/>
+      <Home/>
       {/* <div className="grid grid-cols-1 gap-4 md:grid-cols-3 lg:grid-cols-4 p-4">
         {dummyData.map((product, index) => (
           <ProductCard
