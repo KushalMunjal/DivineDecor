@@ -23,7 +23,8 @@ export default function Home() {
                 Start booking your divine.
               </h2>
               <p className="mt-6 text-lg leading-8 text-gray-300">
-                All kinds of idols(sculptures) available. Customized idols are also most welcomed.
+                A seamless platform where you can effortlessly book stunning mandaps, the centerpiece of any wedding celebration.  
+                Beyond mandaps, we extend our services to provide divine idols that add a spiritual touch to your festivities
               </p>
               <div className="mt-10 flex items-center justify-center gap-x-6 lg:justify-start">
                 <a
@@ -40,8 +41,8 @@ export default function Home() {
             <div className="relative mt-16 h-80 lg:mt-8">
               <img
                 className="absolute left-0 top-0 w-[57rem] max-w-none rounded-md bg-white/5 ring-1 ring-white/10"
-                src="https://tailwindui.com/img/component-images/dark-project-app-screenshot.png"
-                alt="App screenshot"
+                src="https://i.imgur.com/TroBAhl.png"
+                alt="Sardar Vallabhbhai Patel"
                 width={1824}
                 height={1080}
               />
