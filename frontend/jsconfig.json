@@ -2,11 +2,17 @@
     "compilerOptions": {
         "baseUrl": ".",
         "paths": {
+            "~api/*": [
+                "src/api/*"
+            ],
             "~assets/*": [
                 "src/assets/*"
             ],
-            "~/*": [
-                "src/*"
+            "~components/*": [
+                "src/components/*"
+            ],
+            "~constants/*": [
+                "src/constants/*"
             ],
             "~containers/*": [
                 "src/containers/*"
@@ -14,26 +20,26 @@
             "~pages/*": [
                 "src/pages/*"
             ],
-            "~constants/*": [
-                "src/constants/*"
-            ],
-            "~components/*": [
-                "src/components/*"
-            ],
             "~redux/*": [
                 "src/redux/*"
             ],
-            "~ShopSlice/*": [
-                "src/redux/ShopSlice/*"
+            "~/*": [
+                "src/*"
             ],
-            "~Store/*": [
-                "src/redux/Store/*"
+            "~Product/*": [
+                "src/components/Product/*"
             ],
-            "~CartItem/*": [
-                "src/components/CartItem/*"
+            "~Banner/*": [
+                "src/containers/Banner/*"
             ],
-            "~api/*": [
-                "src/api/*"
+            "~Footer/*": [
+                "src/containers/Footer/*"
+            ],
+            "~Header/*": [
+                "src/containers/Header/*"
+            ],
+            "~Products/*": [
+                "src/containers/Products/*"
             ]
         }
     }
