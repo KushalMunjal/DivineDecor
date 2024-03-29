@@ -41,10 +41,11 @@ export default function Home() {
             <div className="relative mt-16 h-80 lg:mt-8">
               <img
                 className="absolute left-0 top-0 w-[57rem] max-w-none rounded-md bg-white/5 ring-1 ring-white/10"
-                src="https://i.imgur.com/TroBAhl.png"
+                src= "https://i.imgur.com/19BHL1a.png"
                 alt="Sardar Vallabhbhai Patel"
                 width={1824}
                 height={1080}
+                // "https://i.imgur.com/TroBAhl.png"
               />
             </div>
           </div>
