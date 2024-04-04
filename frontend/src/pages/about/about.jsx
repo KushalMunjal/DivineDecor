@@ -1,3 +1,6 @@
+import Navbar from '../header/Navbar';
+import Footer from '../footer/Footer';
+
 import React from "react";
 export default function about() {
   return (

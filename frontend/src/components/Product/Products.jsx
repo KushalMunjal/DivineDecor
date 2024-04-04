@@ -1,4 +1,6 @@
 import React from 'react';
+import Navbar from '../header/Navbar';
+import Footer from '../footer/Footer';
 import dummyData from './dummydata'; 
 
 const ProductCard = ({ name, reviews, price, image }) => {
