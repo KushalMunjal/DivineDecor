@@ -1,12 +1,17 @@
-import React from 'react';
-import NavBar from '../../pages/header/Navbar';
-import Footer from '../../pages/footer/Footer';
-import dummyData from './dummydata'; 
+import React, { useState } from 'react';
+import dummyData from './dummydata'; // Importing dummy data here
 
 const ProductCard = ({ name, reviews, price, image }) => {
+  const [isAddedToCart, setIsAddedToCart] = useState(false);
+
+  const handleAddToCart = () => {
+    // Here you can implement logic to add the product to the cart
+    // For now, just toggle the state to simulate adding to cart
+    setIsAddedToCart(!isAddedToCart);
+  };
+
   return (
     <div className="flex flex-col rounded-lg shadow-md overflow-hidden">
-      <NavBar/>
       <div className="w-full h-64 bg-cover" style={{ backgroundImage: `url(${image})` }} />
       <div className="p-4 flex flex-col justify-between">
         <h5 className="text-gray-900 text-xl font-medium mb-2">{name}</h5>
@@ -23,10 +28,28 @@ const ProductCard = ({ name, reviews, price, image }) => {
           <span>{reviews} reviews</span>
         </div>
         <span className="text-gray-900 font-bold mt-2">${price}</span>
+        <button
+          className={`mt-4 bg-blue-500 text-white px-4 py-2 rounded-md ${isAddedToCart ? 'bg-gray-400 cursor-not-allowed' : 'hover:bg-blue-600'}`}
+          onClick={handleAddToCart}
+          disabled={isAddedToCart}
+        >
+          {isAddedToCart ? 'Added to Cart' : 'Add to Cart'}
+        </button>
       </div>
-      <Footer />
     </div>
-  )
-}
+  );
+};
 
-export default ProductCard
+const ProductList = () => {
+  return (
+    <div className="max-w-screen-xl mx-auto px-4">
+      <div className="grid grid-cols-5 gap-4">
+        {dummyData.map((product, index) => (
+          <ProductCard key={index} {...product} /> // Removed the Link and used ProductCard directly
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default ProductList;

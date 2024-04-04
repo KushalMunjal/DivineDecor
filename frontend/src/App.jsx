@@ -9,6 +9,8 @@ import ProductCard from './components/Product/Products'; // Adjust the path if n
 import Login from './pages/login/login';
 import Home from './pages/home/home';
 import AboutUsPage from './pages/about/about';
+import HomePage from './layout/homepage';
+import ProductList from './components/Product/Products';
 
 function App() {
   // return (
@@ -33,10 +35,10 @@ function App() {
   return(
     <BrowserRouter>
     <Routes>
-      <Route path="/" element={<Home />}>
+      <Route path="/" element={<HomePage />}>
         <Route index element={<Home />} />
         <Route path="about" element={<AboutUsPage />} />
-        <Route path="products" element={<ProductCard />} />
+        <Route path="products" element={<ProductList />} />
         <Route path="*" element={<Login />} />
       </Route>
     </Routes>

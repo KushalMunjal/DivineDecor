@@ -109,7 +109,7 @@ export default function Example() {
             Features
           </a>
           <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
-            Marketplace
+          <Link to="/products">Products</Link>
           </a>
           <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
           <Link to="/about">About</Link>
@@ -117,7 +117,7 @@ export default function Example() {
         </Popover.Group>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
           <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
-            Log in <span aria-hidden="true">&rarr;</span>
+          <Link to="/login">Log In</Link> <span aria-hidden="true">&rarr;</span>
           </a>
         </div>
       </nav>
