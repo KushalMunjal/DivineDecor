@@ -14,6 +14,7 @@ import {
     UserIcon,
 } from '@heroicons/react/24/outline'
 import { ChevronDownIcon, PhoneIcon, PlayCircleIcon } from '@heroicons/react/20/solid'
+import Cart from '../../components/Cart/CartIcon'
 
 const products = [
   { name: 'Analytics', description: 'Get a better understanding of your traffic', href: '#', icon: ChartPieIcon },
@@ -33,7 +34,12 @@ function classNames(...classes) {
 
 export default function Example() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [cartCount, setCartCount] = useState(0); // State to hold the count of items in the cart
 
+
+  const addToCart = () => {
+    setCartCount(prevCount => prevCount + 1);
+  };
   return (
     <header className="bg-white">
       <nav className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">
@@ -114,6 +120,7 @@ export default function Example() {
           <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
           <Link to="/about">About</Link>
           </a>
+          <Cart />
         </Popover.Group>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
           <a href="#" className="text-sm font-semibold leading-6 text-gray-900">

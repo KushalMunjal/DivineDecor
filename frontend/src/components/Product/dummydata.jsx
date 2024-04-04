@@ -19,35 +19,35 @@ const dummyData = [
     }
     ,
     {
-      name: "Product 3",
+      name: "Product 4",
       reviews: 20,
       price: 29.99,
       image: "https://images.livemint.com/rf/Image-621x414/LiveMint/Period2/2018/10/31/Photos/Processed/sardar_patel_statue_of-unity-inauguration-kzdC--621x414@LiveMint.JPG" // You can replace this with actual image URLs
     }
     ,
     {
-      name: "Product 3",
+      name: "Product 5",
       reviews: 20,
       price: 29.99,
       image: "https://images.livemint.com/rf/Image-621x414/LiveMint/Period2/2018/10/31/Photos/Processed/sardar_patel_statue_of-unity-inauguration-kzdC--621x414@LiveMint.JPG" // You can replace this with actual image URLs
     }
     ,
     {
-      name: "Product 3",
+      name: "Product 6",
       reviews: 20,
       price: 29.99,
       image: "https://images.livemint.com/rf/Image-621x414/LiveMint/Period2/2018/10/31/Photos/Processed/sardar_patel_statue_of-unity-inauguration-kzdC--621x414@LiveMint.JPG" // You can replace this with actual image URLs
     }
     ,
     {
-      name: "Product 3",
+      name: "Product 7",
       reviews: 20,
       price: 29.99,
       image: "https://images.livemint.com/rf/Image-621x414/LiveMint/Period2/2018/10/31/Photos/Processed/sardar_patel_statue_of-unity-inauguration-kzdC--621x414@LiveMint.JPG" // You can replace this with actual image URLs
     }
     ,
     {
-      name: "Product 3",
+      name: "Product 8",
       reviews: 20,
       price: 29.99,
       image: "https://images.livemint.com/rf/Image-621x414/LiveMint/Period2/2018/10/31/Photos/Processed/sardar_patel_statue_of-unity-inauguration-kzdC--621x414@LiveMint.JPG" // You can replace this with actual image URLs
