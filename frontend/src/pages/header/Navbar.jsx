@@ -17,11 +17,10 @@ import { ChevronDownIcon, PhoneIcon, PlayCircleIcon } from '@heroicons/react/20/
 import Cart from '../../components/Cart/CartIcon'
 
 const products = [
-  { name: 'Analytics', description: 'Get a better understanding of your traffic', href: '#', icon: ChartPieIcon },
-  { name: 'Engagement', description: 'Speak directly to your customers', href: '#', icon: CursorArrowRaysIcon },
-  { name: 'Security', description: 'Your customers’ data will be safe and secure', href: '#', icon: FingerPrintIcon },
-  { name: 'Integrations', description: 'Connect with third-party tools', href: '#', icon: SquaresPlusIcon },
-  { name: 'Automations', description: 'Build strategic funnels that will convert', href: '#', icon: ArrowPathIcon },
+  // { name: 'Murti', description: 'Purchase all range of idols.', href: '#', icon: ChartPieIcon },
+  // { name: 'Mandap', description: 'Purchase all available mandaps.', href: '#', icon: CursorArrowRaysIcon },
+  { name: 'Book Murti', description: 'Customize your idol order.', href: '#', icon: SquaresPlusIcon },
+  { name: 'Book Mandap', description: 'Customize your mandap order.', href: '#', icon: SquaresPlusIcon },
 ]
 const callsToAction = [
   { name: 'Watch demo', href: '#', icon: PlayCircleIcon },
@@ -62,7 +61,7 @@ export default function Example() {
         <Popover.Group className="hidden lg:flex lg:gap-x-12">
           <Popover className="relative">
             <Popover.Button className="flex items-center gap-x-1 text-sm font-semibold leading-6 text-gray-900">
-              Product
+              Book
               <ChevronDownIcon className="h-5 w-5 flex-none text-gray-400" aria-hidden="true" />
             </Popover.Button>
 
