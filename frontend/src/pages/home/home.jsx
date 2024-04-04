@@ -1,6 +1,10 @@
+import Navbar from '../header/Navbar';
+import Footer from '../footer/Footer';
+
 export default function Home() {
     return (
       <div className="bg-white">
+        <Navbar />
         <div className="mx-auto max-w-7xl py-4">
           <div className="relative isolate overflow-hidden bg-gray-900 px-6 pt-16 shadow-2xl sm:rounded-3xl sm:px-16 md:pt-24 lg:flex lg:gap-x-20 lg:px-24 lg:pt-0">
             <svg
@@ -50,6 +54,7 @@ export default function Home() {
             </div>
           </div>
         </div>
+        <Footer />
       </div>
     )
   }
