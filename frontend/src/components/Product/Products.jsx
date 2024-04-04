@@ -1,11 +1,12 @@
 import React from 'react';
-import Navbar from '../header/Navbar';
-import Footer from '../footer/Footer';
+import NavBar from '../../pages/header/Navbar';
+import Footer from '../../pages/footer/Footer';
 import dummyData from './dummydata'; 
 
 const ProductCard = ({ name, reviews, price, image }) => {
   return (
     <div className="flex flex-col rounded-lg shadow-md overflow-hidden">
+      <NavBar/>
       <div className="w-full h-64 bg-cover" style={{ backgroundImage: `url(${image})` }} />
       <div className="p-4 flex flex-col justify-between">
         <h5 className="text-gray-900 text-xl font-medium mb-2">{name}</h5>
@@ -23,6 +24,7 @@ const ProductCard = ({ name, reviews, price, image }) => {
         </div>
         <span className="text-gray-900 font-bold mt-2">${price}</span>
       </div>
+      <Footer />
     </div>
   )
 }
