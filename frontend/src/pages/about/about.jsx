@@ -1,16 +1,27 @@
-import Navbar from '../header/Navbar';
-import Footer from '../footer/Footer';
-
 import React from "react";
-export default function about() {
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+
+export default function About() {
   return (
     <>
       <div className="2xl:container 2xl:mx-auto lg:py-16 lg:px-20 md:py-12 md:px-6 py-9 px-4">
         <div className="flex lg:flex-row flex-col md:gap-14 gap-16 justify-between remove-flex-sm">
           <div className="w-full lg:w-6/12">
-            <h2 className="font-bold lg:text-4xl text-3xl lg:leading-9 leading-7 text-gray-800">
+            {/* <h2 className="font-bold lg:text-4xl text-3xl lg:leading-9 leading-7 text-gray-800">
               Our Mission
-            </h2>
+            </h2> */}
+            <div className="h-full">
+              <MapContainer center={[51.505, -0.09]} zoom={13} style={{ height: '400px', width: '100%' }}>
+                <TileLayer
+                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                />
+                <Marker position={[51.505, -0.09]}>
+                  <Popup>
+                    A pretty CSS3 popup. <br /> Easily customizable.
+                  </Popup>
+                </Marker>
+              </MapContainer>
+            </div>
             <p className="font-normal text-base leading-6 text-gray-600 mt-6 w-full lg:w-10/12 xl:w-9/12">
               Our three guarantees provide value and help make your dollar go
               further. Find hundreds of low prices in-store and save on your
@@ -163,8 +174,8 @@ export default function about() {
                     Press
                   </p>
                   <p className="mt-2 font-normal text-base leading-6 text-gray-600">
-                    Full fledges media support in terms of marketing, promotions
-                    and the publications.
+                    Full-fledged media support in terms of marketing, promotions
+                    and publications.
                   </p>
                 </div>
               </div>
