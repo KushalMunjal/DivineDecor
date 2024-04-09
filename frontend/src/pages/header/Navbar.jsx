@@ -17,8 +17,6 @@ import { ChevronDownIcon, PhoneIcon, PlayCircleIcon } from '@heroicons/react/20/
 import Cart from '../../components/Cart/CartIcon'
 
 const products = [
-  // { name: 'Murti', description: 'Purchase all range of idols.', href: '#', icon: ChartPieIcon },
-  // { name: 'Mandap', description: 'Purchase all available mandaps.', href: '#', icon: CursorArrowRaysIcon },
   { name: 'Book Murti', description: 'Customize your idol order.', href: '#', icon: SquaresPlusIcon },
   { name: 'Book Mandap', description: 'Customize your mandap order.', href: '#', icon: SquaresPlusIcon },
 ]
@@ -35,23 +33,22 @@ export default function Example() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [cartCount, setCartCount] = useState(0); // State to hold the count of items in the cart
 
-
   const addToCart = () => {
     setCartCount(prevCount => prevCount + 1);
   };
   return (
-    <header className="bg-white">
+    <header className="bg-indigo-600">
       <nav className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">
         <div className="flex lg:flex-1">
           <a href="#" className="-m-1.5 p-1.5">
-            <span className="sr-only">Your Company</span>
-            <img className="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="" />
+            <span className="sr-only">DivineDecor</span>
+            <img className="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=100" alt="" />
           </a>
         </div>
         <div className="flex lg:hidden">
           <button
             type="button"
-            className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700"
+            className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-white"
             onClick={() => setMobileMenuOpen(true)}
           >
             <span className="sr-only">Open main menu</span>
@@ -60,7 +57,7 @@ export default function Example() {
         </div>
         <Popover.Group className="hidden lg:flex lg:gap-x-12">
           <Popover className="relative">
-            <Popover.Button className="flex items-center gap-x-1 text-sm font-semibold leading-6 text-gray-900">
+            <Popover.Button className="flex items-center gap-x-1 text-sm font-semibold leading-6 text-white">
               Book
               <ChevronDownIcon className="h-5 w-5 flex-none text-gray-400" aria-hidden="true" />
             </Popover.Button>
@@ -110,19 +107,19 @@ export default function Example() {
             </Transition>
           </Popover>
 
-          <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
+          <a href="#" className="text-sm font-semibold leading-6 text-white">
             Features
           </a>
-          <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
+          <a href="#" className="text-sm font-semibold leading-6 text-white">
           <Link to="/products">Products</Link>
           </a>
-          <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
+          <a href="#" className="text-sm font-semibold leading-6 text-white">
           <Link to="/about">About</Link>
           </a>
           <Cart />
         </Popover.Group>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
+          <a href="#" className="text-sm font-semibold leading-6 text-white">
           <Link to="/login">Log In</Link> <span aria-hidden="true">&rarr;</span>
           </a>
         </div>
