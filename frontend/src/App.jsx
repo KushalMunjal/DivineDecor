@@ -1,10 +1,10 @@
 import React from 'react';
 
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import Navbar from './pages/header/Navbar'; // Adjust the path if needed
-import Footer from './pages/footer/Footer'; // Adjust the path if needed
+import Navbar from './pages/header/Navbar'; 
+import Footer from './pages/footer/Footer'; 
 import dummyData from './components/Product/dummydata';
-import ProductCard from './components/Product/Products'; // Adjust the path if needed
+import ProductCard from './components/Product/Products'; 
 
 import Login from './pages/login/login';
 import Home from './pages/home/home';
