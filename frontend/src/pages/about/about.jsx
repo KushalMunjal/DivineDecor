@@ -1,5 +1,6 @@
 import React from "react";
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import 'leaflet/dist/leaflet.css';
 
 export default function About() {
   return (
@@ -11,39 +12,18 @@ export default function About() {
               Our Mission
             </h2> */}
             <div className="h-full">
-              <MapContainer center={[51.505, -0.09]} zoom={13} style={{ height: '400px', width: '100%' }}>
+              <MapContainer center={[22.322414, 70.8420091]} zoom={15} style={{ height: '400px', width: '100%' }}>
                 <TileLayer
                   url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
-                <Marker position={[51.505, -0.09]}>
+                <Marker position={[22.322414, 70.8420091]}>
                   <Popup>
                     A pretty CSS3 popup. <br /> Easily customizable.
                   </Popup>
                 </Marker>
               </MapContainer>
             </div>
-            <p className="font-normal text-base leading-6 text-gray-600 mt-6 w-full lg:w-10/12 xl:w-9/12">
-              Our three guarantees provide value and help make your dollar go
-              further. Find hundreds of low prices in-store and save on your
-              weekly visit. Here's how: We'll provide you with a rain check
-              coupon if you can't find an item in-store during the current week
-              of our flyer. Found a lower price at another supermarket? No
-              problem! Bring in their flyer and we'll automatically price match
-              everyday staples. Our Double Fresh Guarantee means if you're not
-              completely satisfied with an item purchased at BigBasket, we'll
-              refund your money and replace the item. We also offer Locked and
-              Low prices on select items so you'll always know what they'll
-              cost. BigBasket's money-saving guarantees are here to serve you
-              better.
-            </p>
-            <p className="font-normal text-base leading-6 text-gray-600 w-full lg:w-10/12 xl:w-9/12 mt-10">
-              At BigBasket and Chalo! BigBasket, we do everything we can to
-              improve and contribute to the communities we call home. After all,
-              we live and work here too. From local food banks, to Cram the
-              Cruiser events, our network of more than 125 stores across
-              Ontario, Manitoba, Saskatchewan, Alberta and BC continues to
-              support our communities and charities.
-            </p>
+           
           </div>
           <div className="w-full lg:w-6/12">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 lg:gap-12 gap-10">
