@@ -11,6 +11,8 @@ import Home from './pages/home/home';
 import AboutUsPage from './pages/about/about';
 import HomePage from './layout/homepage';
 import ProductList from './components/Product/Products';
+import BookMurti from './components/Book/bookMurti';
+import BookMandap from './components/Book/bookMandap';
 
 function App() {
   // return (
@@ -37,6 +39,8 @@ function App() {
     <Routes>
       <Route path="/" element={<HomePage />}>
         <Route index element={<Home />} />
+        <Route path="bookmandap" element={<BookMandap />} />
+        <Route path="bookmurti" element={<BookMurti />} />
         <Route path="about" element={<AboutUsPage />} />
         <Route path="products" element={<ProductList />} />
         <Route path="*" element={<Login />} />

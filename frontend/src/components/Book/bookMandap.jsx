@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 
-const BookMurti = () => {
+const BookMandap = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     phoneNumber: '',
-    height: '',
-    material: '',
+    date: '',
+    location: '',
+    decorations: '',
     additionalRequirements: '',
   });
 
@@ -26,7 +27,7 @@ const BookMurti = () => {
 
   return (
     <div className="container mx-auto px-4 py-8 max-w-screen-md">
-      <h1 className="text-3xl font-semibold mb-4">Book Murti</h1>
+      <h1 className="text-3xl font-semibold mb-4">Book Mandap</h1>
       <form onSubmit={handleSubmit}>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="mb-4">
@@ -72,35 +73,46 @@ const BookMurti = () => {
             />
           </div>
           <div className="mb-4">
-            <label htmlFor="height" className="block text-sm font-medium text-gray-600">
-              Height
+            <label htmlFor="date" className="block text-sm font-medium text-gray-600">
+              Wedding Date
             </label>
             <input
-              type="text"
-              id="height"
-              name="height"
-              value={formData.height}
+              type="date"
+              id="date"
+              name="date"
+              value={formData.date}
               onChange={handleChange}
               className="mt-1 p-2 w-full border rounded-md"
               required
             />
           </div>
           <div className="mb-4">
-            <label htmlFor="material" className="block text-sm font-medium text-gray-600">
-              Material (Pop or Mud)
+            <label htmlFor="location" className="block text-sm font-medium text-gray-600">
+              Wedding Location
             </label>
-            <select
-              id="material"
-              name="material"
-              value={formData.material}
+            <input
+              type="text"
+              id="location"
+              name="location"
+              value={formData.location}
               onChange={handleChange}
               className="mt-1 p-2 w-full border rounded-md"
               required
-            >
-              <option value="">Select Material</option>
-              <option value="pop">Pop</option>
-              <option value="mud">Mud</option>
-            </select>
+            />
+          </div>
+          <div className="col-span-full mb-4">
+            <label htmlFor="decorations" className="block text-sm font-medium text-gray-600">
+              Decorations Needed
+            </label>
+            <textarea
+              id="decorations"
+              name="decorations"
+              value={formData.decorations}
+              onChange={handleChange}
+              rows="4"
+              className="mt-1 p-2 w-full border rounded-md"
+              required
+            ></textarea>
           </div>
           <div className="col-span-full mb-4">
             <label htmlFor="additionalRequirements" className="block text-sm font-medium text-gray-600">
@@ -129,4 +141,4 @@ const BookMurti = () => {
   );
 };
 
-export default BookMurti;
+export default BookMandap;

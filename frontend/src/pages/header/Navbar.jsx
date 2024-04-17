@@ -17,12 +17,12 @@ import { ChevronDownIcon, PhoneIcon, PlayCircleIcon } from '@heroicons/react/20/
 import Cart from '../../components/Cart/CartIcon'
 
 const products = [
-  { name: 'Book Murti', description: 'Customize your idol order.', href: '#', icon: SquaresPlusIcon },
-  { name: 'Book Mandap', description: 'Customize your mandap order.', href: '#', icon: SquaresPlusIcon },
+  { name: 'Book Murti', description: 'Customize your idol order.', href: '/bookmurti', icon: SquaresPlusIcon },
+  { name: 'Book Mandap', description: 'Customize your mandap order.', href: '/bookmandap', icon: SquaresPlusIcon },
 ]
 const callsToAction = [
-  { name: 'Watch demo', href: '#', icon: PlayCircleIcon },
-  { name: 'Contact sales', href: '#', icon: PhoneIcon },
+  { name: 'Watch demo', href: '/products', icon: PlayCircleIcon },
+  { name: 'Contact sales', href: '/about', icon: PhoneIcon },
 ]
 
 function classNames(...classes) {
