@@ -1,5 +1,6 @@
 const express = require('express');
 const connectDB = require('./config/db');
+const cors = require('cors'); // Import cors
 const bookMurtiRoutes = require('./src/routes/bookMurtiRoute');
 const errorHandler = require('./src/middlewares/errorHandler');
 
@@ -10,7 +11,7 @@ require('dotenv').config();
 connectDB();
 
 const app = express();
-
+app.use(cors());
 // Middleware
 app.use(express.json());
 
