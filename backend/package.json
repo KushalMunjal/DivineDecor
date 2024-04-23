@@ -10,7 +10,8 @@
   "author": "Keval, Kushal",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.18.2",
-    "nodemon": "^3.0.3"
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "nodemon": "^3.1.0"
   }
 }

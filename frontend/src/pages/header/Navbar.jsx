@@ -108,7 +108,7 @@ export default function Example() {
           </Popover>
 
           <a href="#" className="text-sm font-semibold leading-6 text-white">
-            Features
+            <Link to="/displayprod">Features</Link>
           </a>
           <a href="#" className="text-sm font-semibold leading-6 text-white">
           <Link to="/products">Products</Link>
@@ -189,8 +189,6 @@ export default function Example() {
                   href="#"
                   className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                 >
-                  {/* Company */}
-                  <Link to="/about">About</Link>
                 </a>
               </div>
               <div className="py-6">

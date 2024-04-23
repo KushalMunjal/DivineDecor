@@ -1,6 +1,3 @@
-import Navbar from '../header/Navbar';
-import Footer from '../footer/Footer';
-
 export default function Home() {
     return (
       <div className="bg-white">

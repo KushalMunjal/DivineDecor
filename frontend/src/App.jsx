@@ -13,6 +13,7 @@ import HomePage from './layout/homepage';
 import ProductList from './components/Product/Products';
 import BookMurti from './components/Book/bookMurti';
 import BookMandap from './components/Book/bookMandap';
+import DisplayCardList from './components/Product/DisplayProducts';
 
 function App() {
   // return (
@@ -39,6 +40,7 @@ function App() {
     <Routes>
       <Route path="/" element={<HomePage />}>
         <Route index element={<Home />} />
+        <Route path="displayprod" element={<DisplayCardList />} />
         <Route path="bookmandap" element={<BookMandap />} />
         <Route path="bookmurti" element={<BookMurti />} />
         <Route path="about" element={<AboutUsPage />} />
