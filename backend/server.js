@@ -3,6 +3,7 @@ const connectDB = require('./config/db');
 const cors = require('cors'); // Import cors
 const bookMurtiRoutes = require('./src/routes/bookMurtiRoute');
 const errorHandler = require('./src/middlewares/errorHandler');
+const authRoutes = require('./src/routes/authRoute');
 
 // Load environment variables
 require('dotenv').config();
@@ -17,6 +18,7 @@ app.use(express.json());
 
 // Routes
 app.use('/api', bookMurtiRoutes);
+app.use('/api/auth', authRoutes);
 
 // Error Handler Middleware
 app.use(errorHandler);
