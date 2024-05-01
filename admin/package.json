@@ -1,5 +1,5 @@
 {
-  "name": "tailadmin-react-free",
+  "name": "Divine-Decor-admin",
   "private": true,
   "version": "1.3.0",
   "type": "module",
@@ -9,8 +9,8 @@
     "preview": "vite preview"
   },
   "author": {
-    "name": "TailAdmin",
-    "email": "hello@tailadmin.com",
+    "name": "Divine-Decor-admin",
+    "email": "hello@divinedecoradmin.com",
     "url": ""
   },
   "dependencies": {
