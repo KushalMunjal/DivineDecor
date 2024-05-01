@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Login() {
   const [isLogin, setIsLogin] = useState(true); // State to track whether it's login or sign up form
@@ -9,11 +11,9 @@ export default function Login() {
     password: '',
     confirmPassword: ''
   });
-  const [error, setError] = useState('');
 
   const toggleForm = () => {
     setIsLogin(!isLogin);
-    setError('');
     setFormData({
       name: '',
       email: '',
@@ -29,9 +29,16 @@ export default function Login() {
     });
   };
 
+  const handleSuccess = (message) => {
+    toast.success(message);
+  };
+
+  const handleError = (message) => {
+    toast.error(message);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
 
     // Regular expression for email validation
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -40,12 +47,12 @@ export default function Login() {
     const passwordRegex = /^.{8,16}$/;
 
     if (!emailRegex.test(formData.email)) {
-      setError('Invalid email address');
+      handleError('Invalid email address');
       return;
     }
 
     if (!passwordRegex.test(formData.password)) {
-      setError('Password must be 8 to 16 characters long');
+      handleError('Password must be 8 to 16 characters long');
       return;
     }
 
@@ -56,15 +63,16 @@ export default function Login() {
           email: formData.email,
           password: formData.password
         });
+        handleSuccess('Login successful');
         console.log('Login successful:', response.data);
         // Handle successful login (e.g., store token in localStorage, redirect user)
       } catch (error) {
-        setError(error.response.data.message);
+        handleError(error.response.data.message);
       }
     } else {
       // Sign up
       if (formData.password !== formData.confirmPassword) {
-        setError('Passwords do not match');
+        handleError('Passwords do not match');
         return;
       }
       try {
@@ -73,16 +81,18 @@ export default function Login() {
           email: formData.email,
           password: formData.password
         });
+        handleSuccess('Sign up successful');
         console.log('Sign up successful:', response.data);
         // Handle successful sign up (e.g., show success message, redirect user)
       } catch (error) {
-        setError(error.response.data.message);
+        handleError(error.response.data.message);
       }
     }
   };
 
   return (
     <>
+      <ToastContainer />
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <img
@@ -173,10 +183,6 @@ export default function Login() {
                   />
                 </div>
               </div>
-            )}
-
-            {error && (
-              <div className="text-red-500 text-sm">{error}</div>
             )}
 
             <div>
