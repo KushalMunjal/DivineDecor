@@ -1,10 +1,84 @@
 import { useState } from 'react';
+import axios from 'axios';
 
 export default function Login() {
   const [isLogin, setIsLogin] = useState(true); // State to track whether it's login or sign up form
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    password: '',
+    confirmPassword: ''
+  });
+  const [error, setError] = useState('');
 
   const toggleForm = () => {
     setIsLogin(!isLogin);
+    setError('');
+    setFormData({
+      name: '',
+      email: '',
+      password: '',
+      confirmPassword: ''
+    });
+  };
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError('');
+
+    // Regular expression for email validation
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+    // Regular expression for password validation (8 to 16 characters)
+    const passwordRegex = /^.{8,16}$/;
+
+    if (!emailRegex.test(formData.email)) {
+      setError('Invalid email address');
+      return;
+    }
+
+    if (!passwordRegex.test(formData.password)) {
+      setError('Password must be 8 to 16 characters long');
+      return;
+    }
+
+    if (isLogin) {
+      // Login
+      try {
+        const response = await axios.post('http://localhost:5000/api/auth/login', {
+          email: formData.email,
+          password: formData.password
+        });
+        console.log('Login successful:', response.data);
+        // Handle successful login (e.g., store token in localStorage, redirect user)
+      } catch (error) {
+        setError(error.response.data.message);
+      }
+    } else {
+      // Sign up
+      if (formData.password !== formData.confirmPassword) {
+        setError('Passwords do not match');
+        return;
+      }
+      try {
+        const response = await axios.post('http://localhost:5000/api/auth/signup', {
+          name: formData.name,
+          email: formData.email,
+          password: formData.password
+        });
+        console.log('Sign up successful:', response.data);
+        // Handle successful sign up (e.g., show success message, redirect user)
+      } catch (error) {
+        setError(error.response.data.message);
+      }
+    }
   };
 
   return (
@@ -22,7 +96,27 @@ export default function Login() {
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form className="space-y-6" action="#" method="POST">
+          <form className="space-y-6" onSubmit={handleSubmit}>
+            {!isLogin && (
+              <div>
+                <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">
+                  Name
+                </label>
+                <div className="mt-2">
+                  <input
+                    id="name"
+                    name="name"
+                    type="text"
+                    autoComplete="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    required
+                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  />
+                </div>
+              </div>
+            )}
+
             <div>
               <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
                 Email address
@@ -33,7 +127,10 @@ export default function Login() {
                   name="email"
                   type="email"
                   autoComplete="email"
+                  value={formData.email}
+                  onChange={handleChange}
                   required
+                  pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" // Email regex pattern
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
@@ -49,29 +146,14 @@ export default function Login() {
                   name="password"
                   type="password"
                   autoComplete="new-password"
+                  value={formData.password}
+                  onChange={handleChange}
                   required
+                  pattern="^.{8,16}$" // Password regex pattern (8 to 16 characters)
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
-
-            {!isLogin && (
-              <div>
-                <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">
-                  Name
-                </label>
-                <div className="mt-2">
-                  <input
-                    id="name"
-                    name="name"
-                    type="text"
-                    autoComplete="name"
-                    required
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  />
-                </div>
-              </div>
-            )}
 
             {!isLogin && (
               <div>
@@ -84,11 +166,17 @@ export default function Login() {
                     name="confirmPassword"
                     type="password"
                     autoComplete="new-password"
+                    value={formData.confirmPassword}
+                    onChange={handleChange}
                     required
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
                 </div>
               </div>
+            )}
+
+            {error && (
+              <div className="text-red-500 text-sm">{error}</div>
             )}
 
             <div>
@@ -102,7 +190,7 @@ export default function Login() {
           </form>
 
           <p className="mt-10 text-center text-sm text-gray-500">
-            {isLogin ? 'Not a member? ' : 'Already a member?'}
+            {isLogin ? 'Not a member? ' : 'Already a member? '}
             <button
               onClick={toggleForm}
               className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500 focus:outline-none"
