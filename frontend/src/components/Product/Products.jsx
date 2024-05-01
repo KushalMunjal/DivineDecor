@@ -1,19 +1,18 @@
 import React, { useState } from 'react';
 import { AiOutlineSearch } from 'react-icons/ai'; // Importing search icon from react-icons library
+import { Link } from 'react-router-dom'; // Importing Link from react-router-dom
 import dummyData from './dummydata'; // Importing dummy data here
+import Category from "../Category/Category";
 
-const ProductCard = ({ name, reviews, price, image }) => {
+const ProductCard = ({ id, name, reviews, price, image }) => { // Added id prop
   const [isAddedToCart, setIsAddedToCart] = useState(false);
 
   const handleAddToCart = () => {
     setIsAddedToCart(!isAddedToCart);
   };
 
-  const handleBuyNow = () => {
-    alert(`You bought ${name} for $${price}`);
-  };
-
   return (
+    
     <div className="flex flex-col rounded-lg shadow-md overflow-hidden">
       <div className="w-full h-64 bg-cover" style={{ backgroundImage: `url(${image})` }} />
       <div className="p-4 flex flex-col justify-between">
@@ -33,12 +32,13 @@ const ProductCard = ({ name, reviews, price, image }) => {
           >
             {isAddedToCart ? 'Added to Cart' : 'Add to Cart'}
           </button>
-          <button
+          {/* Link to the product details page */}
+          <Link
+            to={`/product/${id}`} // Linking to the product details page with product id
             className="flex-1 bg-green-500 text-white px-4 py-2 rounded-md ml-2 hover:bg-green-600"
-            onClick={handleBuyNow}
           >
             Buy Now
-          </button>
+          </Link>
         </div>
       </div>
     </div>
@@ -123,6 +123,7 @@ const ProductList = () => {
           </select>
         </div>
       </div>
+      <Category />
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
         {currentProducts.map((product, index) => (
           <ProductCard key={index} {...product} />

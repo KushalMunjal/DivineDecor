@@ -45,8 +45,9 @@ function App() {
         <Route path="bookmandap" element={<BookMandap />} />
         <Route path="bookmurti" element={<BookMurti />} />
         <Route path="about" element={<AboutUsPage />} />
+        <Route path="products/:id" element={<ProductDetails />} />
         <Route path="products" element={<ProductList />} />
-        <Route path="products/:id" element={ProductDetails} />
+
         <Route path="*" element={<Login />} />
       </Route>
     </Routes>

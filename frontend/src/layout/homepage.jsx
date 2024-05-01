@@ -19,9 +19,6 @@
                 <Link to="/products"></Link>
             </li>
             <li>
-                <Link to="/products/:id"></Link>
-            </li>
-            <li>
                 <Link to="/login"></Link>
             </li>
             </ul>
