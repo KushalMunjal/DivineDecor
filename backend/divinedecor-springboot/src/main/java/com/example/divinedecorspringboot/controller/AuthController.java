@@ -3,6 +3,7 @@ package com.example.divinedecorspringboot.controller;
 import com.example.divinedecorspringboot.model.User;
 import com.example.divinedecorspringboot.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
