@@ -15,6 +15,7 @@ import BookMurti from './components/Book/bookMurti';
 import BookMandap from './components/Book/bookMandap';
 import DisplayCardList from './components/Product/DisplayProducts';
 import ProductDetails from './components/Product/ProductDetails';
+import SingleProduct from './components/Product/ProductDetails';
 
 function App() {
   // return (
@@ -45,9 +46,8 @@ function App() {
         <Route path="bookmandap" element={<BookMandap />} />
         <Route path="bookmurti" element={<BookMurti />} />
         <Route path="about" element={<AboutUsPage />} />
-        <Route path="products/:id" element={<ProductDetails />} />
+        <Route path="products/:id" element={<SingleProduct />} />
         <Route path="products" element={<ProductList />} />
-
         <Route path="*" element={<Login />} />
       </Route>
     </Routes>
