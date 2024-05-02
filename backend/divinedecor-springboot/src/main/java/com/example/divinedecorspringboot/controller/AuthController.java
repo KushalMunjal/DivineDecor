@@ -1,9 +1,8 @@
 package com.example.divinedecorspringboot.controller;
 
 import com.example.divinedecorspringboot.model.User;
-import com.example.divinedecorspringboot.service.AuthService;
+import com.example.divinedecorspringboot.repository.AuthRepo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -11,15 +10,19 @@ import org.springframework.web.bind.annotation.*;
 public class AuthController {
 
     @Autowired
-    private AuthService authService;
+    private AuthRepo authRepo;
 
     @PostMapping("/register")
     public User registerUser(@RequestBody User user) {
-        return authService.registerUser(user);
+        return authRepo.save(user);
     }
 
     @PostMapping("/login")
-    public User loginUser(@RequestParam String username, @RequestParam String password) {
-        return authService.loginUser(username, password);
+    public User loginUser(@RequestParam String email, @RequestParam String password) {
+        User user = authRepo.findByEmailAndPassword(email, password);
+        if (user == null) {
+            return null;
+        }
+        return user;
     }
 }
