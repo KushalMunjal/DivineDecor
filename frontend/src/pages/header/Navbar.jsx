@@ -117,9 +117,11 @@ export default function Example() {
           <a href="#" className="text-sm font-semibold leading-6 text-white">
           <Link to="/about">About</Link>
           </a>
+          <SearchBar />
           <Cart />
         </Popover.Group>
-        <SearchBar />
+        
+
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
           <a href="#" className="text-sm font-semibold leading-6 text-white">
           <Link to="/login">Log In</Link> <span aria-hidden="true">&rarr;</span>

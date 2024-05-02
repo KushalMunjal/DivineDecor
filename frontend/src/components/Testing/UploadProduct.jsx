@@ -1,86 +1,145 @@
-  import React, { useState } from 'react';
-  import axios from 'axios';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
-  const ProductUploadForm = () => {
-    const [formData, setFormData] = useState({
-      name: '',
-      category: '',
-      price: '',
-      imageData: null
-    });
+const ImageUploadForm = () => {
+  const [formData, setFormData] = useState({
+    name: '',
+    category: '',
+    price: '',
+    image: null
+  });
+  const [items, setItems] = useState([]);
 
-    const handleChange = (e) => {
-      setFormData({
-        ...formData,
-        [e.target.name]: e.target.value
-      });
-    };
-
-    const handleimageDataChange = (e) => {
-      setFormData({
-        ...formData,
-        imageData: e.target.files[0]
-      });
-    };
-
-    const handleSubmit = async (e) => {
-      e.preventDefault();
-
-      const formDataToSend = new FormData();
-      formDataToSend.append('name', formData.name); 
-      formDataToSend.append('category', formData.category);
-      formDataToSend.append('price', formData.price);
-      formDataToSend.append('imageData', formData.imageData);
+  useEffect(() => {
+    const fetchImages = async () => {
       try {
-          const response = await axios.post('http://localhost:5000/api/products/add', formDataToSend, {
-            headers: {
-              'Content-Type': 'multipart/form-data'
-            }
-          });
-          console.log('Product uploaded successfully:', response.data);
-          // Add any additional logic, such as displaying a success message or redirecting the user
-        } catch (error) {
-          if (error.response) {
-            // The request was made and the server responded with a status code
-            // that falls out of the range of 2xx
-            console.error('Server responded with error status:', error.response.status);
-            console.error('Error response data:', error.response.data);
-          } else if (error.request) {
-            // The request was made but no response was received
-            console.error('No response received from the server');
-          } else {
-            // Something happened in setting up the request that triggered an Error
-            console.error('Error setting up the request:', error.message);
-          }
-          // Handle errors, such as displaying an error message to the user
+        const response = await axios.get('http://localhost/api/products/all');
+        // Ensure that the response data is an array before setting it
+        if (Array.isArray(response.data)) {
+          setItems(response.data);
+        } else {
+          console.error('Response data is not an array:', response.data);
         }
-        
+      } catch (error) {
+        console.error('Error fetching images:', error.message);
+      }
     };
 
-    return (
+    fetchImages();
+  }, []);
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
+
+  const handleImageChange = (e) => {
+    setFormData({
+      ...formData,
+      image: e.target.files[0]
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const formDataToSend = new FormData();
+    formDataToSend.append('name', formData.name);
+    formDataToSend.append('category', formData.category);
+    formDataToSend.append('price', formData.price);
+    formDataToSend.append('image', formData.image);
+
+    try {
+      const response = await axios.post('/api/products/add', formDataToSend, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      });
+      console.log('Image uploaded successfully:', response.data);
+      // Ensure that items is an array before adding to it
+      if (Array.isArray(items)) {
+        setItems([...items, response.data]);
+      } else {
+        console.error('Items is not an array:', items);
+      }
+    } catch (error) {
+      console.error('Error uploading image:', error.message);
+    }
+  };
+
+  return (
+    <div>
+      <h1>To Upload Image on MongoDB</h1>
+      <hr />
       <div>
-        <h2>Upload Product</h2>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} encType="multipart/form-data">
           <div>
-            <label htmlFor="name">Product Name</label>
-            <input type="text" id="name" name="name" value={formData.name} onChange={handleChange} required />
+            <label htmlFor="name">Title</label>
+            <input
+              type="text"
+              id="name"
+              placeholder="Name"
+              value={formData.name}
+              name="name"
+              onChange={handleChange}
+              required
+            />
           </div>
           <div>
-            <label htmlFor="category">Category</label>
-            <input type="text" id="category" name="category" value={formData.category} onChange={handleChange} required />
+            <label htmlFor="cat">Category</label>
+            <textarea
+              id="category"
+              name="category"
+              value={formData.category}
+              rows="2"
+              placeholder="Category"
+              onChange={handleChange}
+              required
+            ></textarea>
           </div>
           <div>
             <label htmlFor="price">Price</label>
-            <input type="number" id="price" name="price" value={formData.price} onChange={handleChange} required />
+            <textarea
+              id="price"
+              name="price"
+              value={formData.price}
+              rows="2"
+              placeholder="Price"
+              onChange={handleChange}
+              required
+            ></textarea>
           </div>
           <div>
-            <label htmlFor="image">Product imageData</label>
-            <input type="file" id="image" name="image"  onChange={handleimageDataChange} required />
+            <label htmlFor="image">Upload Image</label>
+            <input type="file" id="image" name="image" onChange={handleImageChange} required />
           </div>
-          <button type="submit">Upload Product</button>
+          <div>
+            <button type="submit">Submit</button>
+          </div>
         </form>
       </div>
-    );
-  };
 
-  export default ProductUploadForm;
+      <hr />
+
+      <h1>Uploaded Images</h1>
+      <div>
+        {Array.isArray(items) && items.map((image, index) => (
+          <div key={index}>
+            <div>
+              <img src={`data:image/${image.img.contentType};base64,${image.img.data}`} alt={image.name} />
+              <div>
+                <h5>{image.name}</h5>
+                <p>{image.category}</p>
+                <p>{image.price}</p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default ImageUploadForm;

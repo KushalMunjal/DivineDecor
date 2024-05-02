@@ -31,7 +31,7 @@ const SearchBar = ({ products, onSearch }) => {
       <input
         type="text"
         placeholder="Search products..."
-        className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md"
+        className="w-full pl-10 pr-4 py-0.5 border border-gray-300 rounded-md"
         value={searchQuery}
         onChange={handleSearchInputChange}
       />
