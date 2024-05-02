@@ -1,16 +1,5 @@
 const mongoose = require('mongoose');
 
-const imageSchema = new mongoose.Schema({
-  filename: {
-    type: String,
-    required: true,
-  },
-  filepath: {
-    type: String,
-    required: true,
-  },
-});
-
 const productSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -24,9 +13,16 @@ const productSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  images: [imageSchema], // Array of images
+  image: {
+    data: {
+      type: Buffer,
+      required: true,
+    },
+    contentType: {
+      type: String,
+      required: true,
+    }
+  },
 });
 
-const Product = mongoose.model('Product', productSchema);
-
-module.exports = Product;
+module.exports = mongoose.model('Product', productSchema);
