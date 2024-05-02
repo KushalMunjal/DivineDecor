@@ -1,26 +1,22 @@
-import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+// SingleProduct.jsx
+
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate hook
+import OrdersList from '../../pages/orders/OrdersList'; // Import OrdersList component
 import dummyData from './dummydata'; // Importing dummy data here
 
 const SingleProduct = () => {
-  const { id } = useParams(); // Extracting product ID from URL params
-  const [product, setProduct] = useState(null);
-  const [showFeatures, setShowFeatures] = useState(false);
-  const [showShippingDetails, setShowShippingDetails] = useState(false);
+  const navigate = useNavigate(); // Initializing useNavigate hook
+  const [showOrdersList, setShowOrdersList] = useState(false); // State to toggle showing OrdersList
 
-  useEffect(() => {
-    // Convert the id parameter to a number
-    const productId = parseInt(id);
+  // Dummy product data
+  const product = dummyData[0]; // Assume the first product in dummy data
 
-    // Fetch product details based on the ID
-    const fetchedProduct = dummyData.find(product => product.id === productId);
-    setProduct(fetchedProduct);
-  }, [id]);
-
-  // If product is still loading, display a loading message
-  if (!product) {
-    return <div>Loading...</div>;
-  }
+  // Function to handle "Buy Now" button click
+  const handleBuyNow = () => {
+    // Set the state to show OrdersList component
+    setShowOrdersList(true);
+  };
 
   return (
     <div className="max-w-screen-xl mx-auto px-4 py-8">
@@ -38,51 +34,15 @@ const SingleProduct = () => {
             </svg>
             <span>{product.reviews} reviews</span>
           </div>
-          {/* Features Dropdown */}
-          <div className="mb-4">
-            <div className="flex justify-between items-center cursor-pointer" onClick={() => setShowFeatures(!showFeatures)}>
-              <h3 className="text-lg font-semibold text-gray-900">Features</h3>
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className={`w-6 h-6 ${showFeatures ? 'transform rotate-180' : ''}`}>
-                <path fill="currentColor" d="M17.293 7.293a1 1 0 011.414 1.414l-5 5a1 1 0 01-1.414 0l-5-5a1 1 0 111.414-1.414L12 10.586l5.293-5.293a1 1 0 011.414 0z"></path>
-              </svg>
-            </div>
-            {showFeatures && (
-              <div className="text-sm text-gray-700 ml-6">
-                {/* Render features here */}
-                <ul>
-                  <li>Feature 1</li>
-                  <li>Feature 2</li>
-                  <li>Feature 3</li>
-                  {/* Add more features as needed */}
-                </ul>
-              </div>
-            )}
-          </div>
-          {/* Shipping Details Dropdown */}
-          <div className="mb-4">
-            <div className="flex justify-between items-center cursor-pointer" onClick={() => setShowShippingDetails(!showShippingDetails)}>
-              <h3 className="text-lg font-semibold text-gray-900">Shipping Details</h3>
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className={`w-6 h-6 ${showShippingDetails ? 'transform rotate-180' : ''}`}>
-                <path fill="currentColor" d="M17.293 7.293a1 1 0 011.414 1.414l-5 5a1 1 0 01-1.414 0l-5-5a1 1 0 111.414-1.414L12 10.586l5.293-5.293a1 1 0 011.414 0z"></path>
-              </svg>
-            </div>
-            {showShippingDetails && (
-              <div className="text-sm text-gray-700 ml-6">
-                {/* Render shipping details here */}
-                <p>Shipping Information:</p>
-                <p>Estimated delivery time: 3-5 business days</p>
-                <p>Shipping cost: Free</p>
-                {/* Add more shipping details as needed */}
-              </div>
-            )}
-          </div>
           {/* Buttons */}
           <div className="flex">
             <button className="bg-blue-500 text-white px-4 py-2 rounded-md mr-2 hover:bg-blue-600">Add to Cart</button>
-            <button className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600">Buy Now</button>
+            <button className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600" onClick={handleBuyNow}>Buy Now</button>
           </div>
         </div>
       </div>
+      {/* If showOrdersList is true, render OrdersList component */}
+      {showOrdersList && <OrdersList product={product} setShowOrdersList={setShowOrdersList} />}
     </div>
   );
 };

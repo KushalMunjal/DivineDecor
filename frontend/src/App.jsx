@@ -17,6 +17,7 @@ import DisplayCardList from './components/Product/DisplayProducts';
 import ProductDetails from './components/Product/ProductDetails';
 import SingleProduct from './components/Product/ProductDetails';
 import ProductUploadForm from './components/Testing/UploadProduct';
+import OrdersList from './pages/orders/OrdersList';
 
 function App() {
   // return (
@@ -51,6 +52,7 @@ function App() {
         <Route path="products/:id" element={<SingleProduct />} />
         <Route path="products" element={<ProductList />} />
         <Route path="test" element={<ProductUploadForm />} />
+        <Route path="orders" element={<OrdersList />} />
         <Route path="*" element={<Login />} />
       </Route>
     </Routes>
