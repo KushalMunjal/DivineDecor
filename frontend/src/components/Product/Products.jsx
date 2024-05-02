@@ -1,49 +1,8 @@
 import React, { useState } from 'react';
 import { AiOutlineSearch } from 'react-icons/ai'; // Importing search icon from react-icons library
-import { Link } from 'react-router-dom'; // Importing Link from react-router-dom
 import dummyData from './dummydata'; // Importing dummy data here
 import Category from "../Category/Category";
-
-const ProductCard = ({ id, name, reviews, price, image }) => { // Added id prop
-  const [isAddedToCart, setIsAddedToCart] = useState(false);
-
-  const handleAddToCart = () => {
-    setIsAddedToCart(!isAddedToCart);
-  };
-
-  return (
-    
-    <div className="flex flex-col rounded-lg shadow-md overflow-hidden">
-      <div className="w-full h-64 bg-cover" style={{ backgroundImage: `url(${image})` }} />
-      <div className="p-4 flex flex-col justify-between">
-        <h5 className="text-gray-900 text-xl font-medium mb-2">{name}</h5>
-        <div className="flex items-center text-sm text-gray-700">
-          <svg fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24" className="w-4 h-4 mr-1">
-            <path d="M9 0h3v24H9V0zM0 0h24v24H0V0z" />
-          </svg>
-          <span>{reviews} reviews</span>
-        </div>
-        <span className="text-gray-900 font-bold mt-2">${price}</span>
-        <div className="flex mt-4">
-          <button
-            className={`flex-1 bg-blue-500 text-white px-4 py-2 rounded-md ${isAddedToCart ? 'bg-gray-400 cursor-not-allowed' : 'hover:bg-blue-600'}`}
-            onClick={handleAddToCart}
-            disabled={isAddedToCart}
-          >
-            {isAddedToCart ? 'Added to Cart' : 'Add to Cart'}
-          </button>
-          {/* Link to the product details page */}
-          <Link
-            to={`/product/${id}`} // Linking to the product details page with product id
-            className="flex-1 bg-green-500 text-white px-4 py-2 rounded-md ml-2 hover:bg-green-600"
-          >
-            Buy Now
-          </Link>
-        </div>
-      </div>
-    </div>
-  );
-};
+import { Link } from 'react-router-dom';
 
 const ProductList = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -126,7 +85,27 @@ const ProductList = () => {
       <Category />
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
         {currentProducts.map((product, index) => (
-          <ProductCard key={index} {...product} />
+          <div key={index} className="flex flex-col rounded-lg shadow-md overflow-hidden">
+            <div className="w-full h-64 bg-cover" style={{ backgroundImage: `url(${product.image})` }} />
+            <div className="p-4 flex flex-col justify-between">
+              <h5 className="text-gray-900 text-xl font-medium mb-2">{product.name}</h5>
+              <div className="flex items-center text-sm text-gray-700">
+                <svg fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24" className="w-4 h-4 mr-1">
+                  <path d="M9 0h3v24H9V0zM0 0h24v24H0V0z" />
+                </svg>
+                <span>{product.reviews} reviews</span>
+              </div>
+              <span className="text-gray-900 font-bold mt-2">${product.price}</span>
+              <div className="flex mt-4">
+                <Link
+                  to={`/products/${product.id}`} // Linking to the product details page with product id
+                  className="flex-1 bg-green-500 text-white px-4 py-2 rounded-md ml-2 hover:bg-green-600"
+                >
+                  View Details
+                </Link>
+              </div>
+            </div>
+          </div>
         ))}
       </div>
       <div className="flex justify-center mt-4">
