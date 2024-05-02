@@ -27,7 +27,7 @@
       e.preventDefault();
 
       const formDataToSend = new FormData();
-      formDataToSend.append('name', formData.name);
+      formDataToSend.append('name', formData.name); 
       formDataToSend.append('category', formData.category);
       formDataToSend.append('price', formData.price);
       formDataToSend.append('imageData', formData.imageData);

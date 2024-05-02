@@ -53,16 +53,16 @@ const ProductList = () => {
     <div className="max-w-screen-xl mx-auto px-4">
       <div className="flex items-center justify-between w-full max-w-lg mx-auto my-4">
         <div className="relative flex items-center w-full max-w-[calc(50%-1rem)]">
-          <span className="absolute inset-y-0 left-0 pl-3 flex items-center">
+          {/* <span className="absolute inset-y-0 left-0 pl-3 flex items-center">
             <AiOutlineSearch className="text-gray-500" />
-          </span>
-          <input
+          </span> */}
+          {/* <input
             type="text"
             placeholder="Search products..."
             className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md"
             value={searchQuery}
             onChange={handleSearchInputChange}
-          />
+          /> */}
         </div>
         <div className="relative">
           <label htmlFor="filter" className="sr-only">Filter:</label>
@@ -85,7 +85,7 @@ const ProductList = () => {
       <Category />
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
         {currentProducts.map((product, index) => (
-          <div key={index} className="flex flex-col rounded-lg shadow-md overflow-hidden">
+          <div key={index} className="flex flex-col rounded-lg shadow-md overflow-hidden border border-gray-200 hover:shadow-lg transition duration-300">
             <div className="w-full h-64 bg-cover" style={{ backgroundImage: `url(${product.image})` }} />
             <div className="p-4 flex flex-col justify-between">
               <h5 className="text-gray-900 text-xl font-medium mb-2">{product.name}</h5>
@@ -108,18 +108,24 @@ const ProductList = () => {
           </div>
         ))}
       </div>
-      <div className="flex justify-center mt-4">
-        {Array.from({ length: totalPages }, (_, i) => (
-          <button
-            key={i}
-            onClick={() => paginate(i + 1)}
-            className={`mx-1 px-3 py-1 rounded-full focus:outline-none ${
-              currentPage === i + 1 ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-800'
-            }`}
-          >
-            {i + 1}
-          </button>
-        ))}
+      <div className="flex justify-between items-center mt-4">
+        <p className="text-sm text-gray-700">
+          Showing {indexOfFirstProduct + 1} to {Math.min(indexOfLastProduct, filteredProducts.length)} of {filteredProducts.length} results
+        </p>
+        <div className="flex">
+          {Array.from({ length: totalPages }, (_, i) => (
+            <button
+              key={i}
+              onClick={() => paginate(i + 1)}
+              className={`mx-1 px-3 py-1 rounded-full focus:outline-none ${
+                currentPage === i + 1 ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-800'
+              }`}
+              style={{ marginRight: '5px' }} // Added spacing
+            >
+              {i + 1}
+            </button>
+          ))}
+        </div>
       </div>
     </div>
   );

@@ -15,6 +15,7 @@ import {
 } from '@heroicons/react/24/outline'
 import { ChevronDownIcon, PhoneIcon, PlayCircleIcon } from '@heroicons/react/20/solid'
 import Cart from '../../components/Cart/CartIcon'
+import SearchBar from '../../components/SearchBar/SearchBar';
 
 const products = [
   { name: 'Book Murti', description: 'Customize your idol order.', href: '/bookmurti', icon: SquaresPlusIcon },
@@ -118,6 +119,7 @@ export default function Example() {
           </a>
           <Cart />
         </Popover.Group>
+        <SearchBar />
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
           <a href="#" className="text-sm font-semibold leading-6 text-white">
           <Link to="/login">Log In</Link> <span aria-hidden="true">&rarr;</span>

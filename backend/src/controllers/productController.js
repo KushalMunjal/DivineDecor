@@ -6,7 +6,6 @@ const { postImage } = require('./imageController');
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
-
 // Controller to create a new product with image upload
 exports.createProduct = async (req, res) => {
   try {
