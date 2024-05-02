@@ -16,6 +16,7 @@ import BookMandap from './components/Book/bookMandap';
 import DisplayCardList from './components/Product/DisplayProducts';
 import ProductDetails from './components/Product/ProductDetails';
 import SingleProduct from './components/Product/ProductDetails';
+import ProductUploadForm from './components/Testing/UploadProduct';
 
 function App() {
   // return (
@@ -48,6 +49,7 @@ function App() {
         <Route path="about" element={<AboutUsPage />} />
         <Route path="products/:id" element={<SingleProduct />} />
         <Route path="products" element={<ProductList />} />
+        <Route path="test" element={<ProductUploadForm />} />
         <Route path="*" element={<Login />} />
       </Route>
     </Routes>

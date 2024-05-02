@@ -1,16 +1,17 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 export default function Login() {
-  const [isLogin, setIsLogin] = useState(true); // State to track whether it's login or sign up form
+  const [isLogin, setIsLogin] = useState(true);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     password: '',
     confirmPassword: ''
   });
+  const [errorMessage, setErrorMessage] = useState('');
 
   const toggleForm = () => {
     setIsLogin(!isLogin);
@@ -35,29 +36,33 @@ export default function Login() {
 
   const handleError = (message) => {
     toast.error(message);
+    setErrorMessage(message); // Set error message state
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    // Regular expression for email validation
+  
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-
-    // Regular expression for password validation (8 to 16 characters)
     const passwordRegex = /^.{8,16}$/;
-
+  
+    let error = '';
+  
     if (!emailRegex.test(formData.email)) {
-      handleError('Invalid email address');
+      error = 'Invalid email address';
+    } else if (!passwordRegex.test(formData.password)) {
+      error = 'Password must be 8 to 16 characters long';
+    } else if (!isLogin && formData.password !== formData.confirmPassword) {
+      error = 'Passwords do not match';
+    }
+  
+    if (error) {
+      setErrorMessage(error);
       return;
     }
-
-    if (!passwordRegex.test(formData.password)) {
-      handleError('Password must be 8 to 16 characters long');
-      return;
-    }
-
+  
+    setErrorMessage(''); // Clear the error message
+  
     if (isLogin) {
-      // Login
       try {
         const response = await axios.post('http://localhost:5000/api/auth/login', {
           email: formData.email,
@@ -65,16 +70,10 @@ export default function Login() {
         });
         handleSuccess('Login successful');
         console.log('Login successful:', response.data);
-        // Handle successful login (e.g., store token in localStorage, redirect user)
       } catch (error) {
         handleError(error.response.data.message);
       }
     } else {
-      // Sign up
-      if (formData.password !== formData.confirmPassword) {
-        handleError('Passwords do not match');
-        return;
-      }
       try {
         const response = await axios.post('http://localhost:5000/api/auth/signup', {
           name: formData.name,
@@ -83,12 +82,12 @@ export default function Login() {
         });
         handleSuccess('Sign up successful');
         console.log('Sign up successful:', response.data);
-        // Handle successful sign up (e.g., show success message, redirect user)
       } catch (error) {
         handleError(error.response.data.message);
       }
     }
   };
+  
 
   return (
     <>
@@ -183,6 +182,11 @@ export default function Login() {
                   />
                 </div>
               </div>
+            )}
+
+            {/* Display error message */}
+            {errorMessage && (
+              <p className="text-red-500 text-sm">{errorMessage}</p>
             )}
 
             <div>

@@ -4,6 +4,7 @@ const cors = require('cors'); // Import cors
 const bookMurtiRoutes = require('./src/routes/bookMurtiRoute');
 const errorHandler = require('./src/middlewares/errorHandler');
 const authRoutes = require('./src/routes/authRoute');
+const productRoutes= require('./src/routes/productRoute');
 
 // Load environment variables
 require('dotenv').config();
@@ -19,6 +20,7 @@ app.use(express.json());
 // Routes
 app.use('/api', bookMurtiRoutes);
 app.use('/api/auth', authRoutes);
+app.use('/api/products', productRoutes);
 
 // Error Handler Middleware
 app.use(errorHandler);
