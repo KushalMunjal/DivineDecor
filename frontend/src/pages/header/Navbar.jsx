@@ -105,7 +105,8 @@ console.log('Is logged in:', isLoggedIn());
         <div className="flex lg:flex-1">
           <a href="#" className="-m-1.5 p-1.5">
             <span className="sr-only">DivineDecor</span>
-            <img className="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=100" alt="" />
+            <img className="h-8 w-auto" src="" alt="" />
+            <link to='/home'></link>
           </a>
         </div>
         <div className="flex lg:hidden">
@@ -194,7 +195,7 @@ console.log('Is logged in:', isLoggedIn());
           </div>
         ) : (
           <a href="#" className="text-sm font-semibold leading-6 text-white">
-            <button className="text-sm font-semibold leading-6" onClick={login}>Log In</button>
+            <button className="text-sm font-semibold leading-6" onClick={login}><Link to="/login">Log In</Link></button>
             <span aria-hidden="true">&rarr;</span>
           </a>
         )}

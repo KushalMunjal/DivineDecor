@@ -63,11 +63,11 @@ export default function About() {
                 </div>
                 <div className="">
                   <p className="font-semibold lg:text-2xl text-xl lg:leading-6 leading-5 text-gray-800">
-                    Team
+                    Quality
                   </p>
                   <p className="mt-2 font-normal text-base leading-6 text-gray-600">
-                    We offer great training and support, accommodating and
-                    flexible work schedules, and endless growth opportunities.
+                    We offer great quality for our products especially in terms of material,
+                    reliable color, and a nice shining finishing.
                   </p>
                 </div>
               </div>
@@ -114,11 +114,11 @@ export default function About() {
                 </div>
                 <div className="">
                   <p className="font-semibold lg:text-2xl text-xl lg:leading-6 leading-5 text-gray-800">
-                    Board
+                    Delivery
                   </p>
                   <p className="mt-2 font-normal text-base leading-6 text-gray-600">
-                    You'll get to work in an inclusive environment and make a
-                    difference in the community we serve.
+                    We deliver not only in Rajkot but also in
+                    other cities of Gujarat.
                   </p>
                 </div>
               </div>
@@ -151,11 +151,11 @@ export default function About() {
                 </div>
                 <div className="">
                   <p className="font-semibold lg:text-2xl text-xl lg:leading-6 leading-5 text-gray-800">
-                    Press
+                    Flexiblity
                   </p>
                   <p className="mt-2 font-normal text-base leading-6 text-gray-600">
-                    Full-fledged media support in terms of marketing, promotions
-                    and publications.
+                    For larger project, we come with our team to your
+                    location ensuring dedication for our work and the final product.
                   </p>
                 </div>
               </div>

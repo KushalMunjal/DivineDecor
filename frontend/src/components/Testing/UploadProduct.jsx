@@ -6,7 +6,7 @@ const ImageUploadForm = () => {
     name: '',
     desc: '',
     price: '',
-    image: null
+    imageUrl: '' // Add a new state for imageUrl
   });
   const [items, setItems] = useState([]);
 
@@ -30,32 +30,29 @@ const ImageUploadForm = () => {
     });
   };
 
-  const handleImageChange = (e) => {
-    setFormData({
-      ...formData,
-      image: e.target.files[0]
-    });
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const formDataToSend = new FormData();
-    formDataToSend.append('name', formData.name);
-    formDataToSend.append('desc', formData.desc);
-    formDataToSend.append('price', formData.price);
-    formDataToSend.append('image', formData.image);
-
     try {
-      const response = await axios.post('http://localhost:5000/api/products/add', formDataToSend, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
-      });
-      console.log('Image uploaded successfully:', response.data);
+      // Upload product details along with the image URL
+      const { name, desc, price, imageUrl } = formData;
+      const productData = { name, desc, price, imageUrl };
+      const response = await axios.post('http://localhost:5000/api/products/add', productData);
+
+      // Update state with the newly uploaded product
       setItems([...items, response.data]);
+
+      // Clear form data
+      setFormData({
+        name: '',
+        desc: '',
+        price: '',
+        imageUrl: '' // Reset imageUrl after submission
+      });
+
+      console.log('Product uploaded successfully:', response.data);
     } catch (error) {
-      console.error('Error uploading image:', error.message);
+      console.error('Error uploading product:', error.message);
     }
   };
 
@@ -64,7 +61,7 @@ const ImageUploadForm = () => {
       <h1>To Upload Image on MongoDB</h1>
       <hr />
       <div>
-        <form onSubmit={handleSubmit} encType="multipart/form-data">
+        <form onSubmit={handleSubmit}>
           <div>
             <label htmlFor="name">Title</label>
             <input
@@ -102,8 +99,16 @@ const ImageUploadForm = () => {
             ></textarea>
           </div>
           <div>
-            <label htmlFor="image">Upload Image</label>
-            <input type="file" id="image" name="image" onChange={handleImageChange} required />
+            <label htmlFor="imageUrl">Image URL</label>
+            <input
+              type="text"
+              id="imageUrl"
+              placeholder="Image URL"
+              value={formData.imageUrl}
+              name="imageUrl"
+              onChange={handleChange}
+              required
+            />
           </div>
           <div>
             <button type="submit">Submit</button>
@@ -115,37 +120,16 @@ const ImageUploadForm = () => {
 
       <h1>Uploaded Images</h1>
       <div>
-      {Array.isArray(items) && items.map((image, index) => {
-  console.log('Image data:', {
-    type: image.img.contentType,
-    data: arrayBufferToBase64(image.img.data)
-  });
-  
-  function arrayBufferToBase64(buffer) {
-    let binary = '';
-    const bytes = new Uint8Array(buffer);
-    const len = bytes.byteLength;
-    for (let i = 0; i < len; i++) {
-      binary += String.fromCharCode(bytes[i]);
-    }
-    return window.btoa(binary);
-  }
-  
-  return (
-    <div key={index}>
-      <div>
-        <img src={`data:image/${image.img.contentType};base64,${arrayBufferToBase64(image.img.data)}`} alt={image.name} />
-        <div>
-          <h5>{image.name}</h5>
-          <p>{image.category}</p>
-          <p>{image.price}</p>
-        </div>
-      </div>
-    </div>
-  );
-})}
-
-
+        {items.map((item, index) => (
+          <div key={index}>
+            <img src={item.imageUrl} alt={item.name} />
+            <div>
+              <h5>{item.name}</h5>
+              <p>{item.desc}</p>
+              <p>{item.price}</p>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );

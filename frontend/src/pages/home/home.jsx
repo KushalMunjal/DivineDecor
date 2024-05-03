@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export default function Home() {
     return (
       <div className="bg-white">
@@ -31,10 +33,11 @@ export default function Home() {
                   href="#"
                   className="rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
                 >
-                  Get started
+                  <Link to='/products'>Get started</Link>
+
                 </a>
                 <a href="#" className="text-sm font-semibold leading-6 text-white">
-                  Learn more <span aria-hidden="true">→</span>
+                <Link to='/about'>Learn more</Link> <span aria-hidden="true">→</span>
                 </a>
               </div>
             </div>

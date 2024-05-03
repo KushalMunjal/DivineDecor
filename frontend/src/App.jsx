@@ -19,6 +19,7 @@ import SingleProduct from './components/Product/ProductDetails';
 import ProductUploadForm from './components/Testing/UploadProduct';
 import OrdersList from './pages/orders/OrdersList';
 import ImageUploadForm from './components/Testing/UploadProduct';
+import Error from './pages/error/error';
 
 function App() {
   // return (
@@ -54,7 +55,9 @@ function App() {
         <Route path="products" element={<ProductList />} />
         <Route path="test" element={<ImageUploadForm />} />
         <Route path="orders" element={<OrdersList />} />
-        <Route path="*" element={<Login />} />
+        <Route path="login" element={<Login />} />
+        <Route path="home" element={<Home />} />
+        <Route path="*" element={<Error />} />
       </Route>
     </Routes>
     </BrowserRouter>)
