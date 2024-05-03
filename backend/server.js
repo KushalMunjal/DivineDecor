@@ -8,6 +8,7 @@ const productRoutes= require('./src/routes/productRoute');
 var imgSchema = require('./src/models/Image');
 var fs = require('fs');
 var path = require('path');
+const stripe = require("stripe")(process.env.STRIPE_SECRET);
 
 // Load environment variables
 require('dotenv').config();
@@ -31,6 +32,34 @@ app.use(express.static('uploads'));
 app.use('/api', bookMurtiRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/products', productRoutes);
+
+// checkout api
+app.post("/api/create-checkout-session", async (req, res) => {
+    const { product } = req.body;
+    const lineItems = product.map((product) => ({
+      price_data: {
+        currency: "inr",
+        product_data: {
+          name: product.name,
+          images: [product.imageUrl],
+        },
+        unit_amount: product.price * 100,
+      },
+      quantity: product.quantity,
+    }));
+  
+    const session = await stripe.checkout.sessions.create({
+      payment_method_types: ["card"],
+      line_items: lineItems,
+      mode: "payment",
+      success_url: "http://localhost:5000/success",
+      cancel_url: "http://localhost:5000/cancel",
+    });
+  
+    res.json({ id: session.id });
+  });
+  
+
 
 // Error Handler Middleware
 app.use(errorHandler);
