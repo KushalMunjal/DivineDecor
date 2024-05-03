@@ -65,14 +65,14 @@ const productData = [
   },
 ];
 
-const Products = () => {
+const Products = (productData) => {
   let emptyProduct = {
     id: null,
     name: '',
     image: null,
     description: '',
     category: null,
-    price: 0,
+    price: 1,
     quantity: 0,
     rating: 0,
     inventoryStatus: 'INSTOCK'

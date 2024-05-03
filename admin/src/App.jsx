@@ -17,9 +17,7 @@ import Buttons from './pages/UiElements/Buttons';
 import Products from './pages/Catalog/Products';
 import Categories from './pages/Catalog/Categories';
 import AddProducts from './pages/Catalog/AddProducts';
-import EditProducts from './pages/Catalog/EditProducts';
 import AddCategory from './pages/Catalog/AddCategory';
-import EditCategory from './pages/Catalog/EditCategory';
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -75,29 +73,11 @@ function App() {
           }
         />
         <Route
-          path="/catalog/edit-product"
-          element={
-            <>
-              <PageTitle title="Catalog" />
-              <EditProducts />
-            </>
-          }
-        />
-        <Route
           path="/catalog/add-category"
           element={
             <>
               <PageTitle title="Catalog" />
               <AddCategory />
-            </>
-          }
-        />
-        <Route
-          path="/catalog/edit-category"
-          element={
-            <>
-              <PageTitle title="Catalog" />
-              <EditCategory />
             </>
           }
         />
