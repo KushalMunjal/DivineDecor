@@ -22,7 +22,7 @@ const products = [
   { name: 'Book Mandap', description: 'Customize your mandap order.', href: '/bookmandap', icon: SquaresPlusIcon },
 ]
 const callsToAction = [
-  { name: 'Watch demo', href: '/products', icon: PlayCircleIcon },
+  { name: 'Watch Products', href: '/products', icon: PlayCircleIcon },
   { name: 'Contact sales', href: '/about', icon: PhoneIcon },
 ]
 
@@ -40,7 +40,7 @@ export default function Example() {
       // Fetch user data if user is logged in
       if (isLoggedIn()) {
         try {
-          const response = await fetch('http://localhost:5000/api/user', {
+          const response = await fetch('https://divinedecorbackend.onrender.com/api/user', {
             headers: {
               Authorization: `Bearer ${localStorage.getItem('token')}`, // Send JWT token in the request headers
             },
@@ -56,18 +56,45 @@ export default function Example() {
         }
       }
     };
-
+  
     fetchData();
   }, []);
+  
 
-  const login = async () => {
+//   const login = async () => {
+//   try {
+//     const response = await fetch('https://divinedecorbackend.onrender.com/api/login', {
+//       method: 'POST',
+//       headers: {
+//         'Content-Type': 'application/json',
+//       },
+//       body: JSON.stringify(req.body),
+//     });
+
+//     if (response.ok) {
+//       const userData = await response.json();
+//       setUserData(userData);
+//       localStorage.setItem('isLoggedIn', 'true'); // Set isLoggedIn to true in localStorage
+//     } else {
+//       console.error('Login failed:', response.statusText);
+//     }
+//   } catch (error) {
+//     console.error('Error logging in:', error);
+//   }
+// };
+const login = async (event) => {
+  event.preventDefault(); // Prevent the form from submitting normally
+
+  const username = event.target.username.value; // Assuming the input field has the name attribute set to "username"
+  const password = event.target.password.value; // Assuming the input field has the name attribute set to "password"
+
   try {
-    const response = await fetch('http://localhost:5000/api/login', {
+    const response = await fetch('https://divinedecorbackend.onrender.com/api/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(req.body),
+      body: JSON.stringify({ username, password }), // Sending username and password in the request body
     });
 
     if (response.ok) {
@@ -82,6 +109,7 @@ export default function Example() {
   }
 };
 
+
 const logout = () => {
   setUserData(null);
   localStorage.removeItem('isLoggedIn'); // Remove isLoggedIn from localStorage on logout
@@ -89,12 +117,8 @@ const logout = () => {
 
 const isLoggedIn = () => {
   return localStorage.getItem('isLoggedIn') === 'true';
-  console.log('Is logged in:', loggedIn);
-  return loggedIn;
 };
 
-
-console.log('Is logged in:', isLoggedIn());
 
   const addToCart = () => {
     setCartCount(prevCount => prevCount + 1);
@@ -171,15 +195,9 @@ console.log('Is logged in:', isLoggedIn());
             </Transition>
           </Popover>
 
-          <a href="#" className="text-sm font-semibold leading-6 text-white">
-            <Link to="/displayprod">Features</Link>
-          </a>
-          <a href="#" className="text-sm font-semibold leading-6 text-white">
-          <Link to="/products">Products</Link>
-          </a>
-          <a href="#" className="text-sm font-semibold leading-6 text-white">
-          <Link to="/about">About</Link>
-          </a>
+            <Link to="/displayprod" className="text-sm font-semibold leading-6 text-white">Features</Link>
+          <Link to="/products" className="text-sm font-semibold leading-6 text-white">Products</Link>
+          <Link to="/about" className="text-sm font-semibold leading-6 text-white">About</Link>
           <SearchBar />
           <Cart />
         </Popover.Group>
@@ -250,31 +268,14 @@ console.log('Is logged in:', isLoggedIn());
                     </>
                   )}
                 </Disclosure>
-                <a
-                  href="#"
-                  className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                >
-                  Features
-                </a>
-                <a
-                  href="#"
-                  className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                >
-                  Marketplace
-                </a>
-                <a
-                  href="#"
-                  className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                >
-                </a>
+                <Link to="/displayprod"  className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Features</Link>
+          <Link to="/products"  className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Products</Link>
+          <Link to="/about"  className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">About</Link>
+
               </div>
               <div className="py-6">
-                <a
-                  href="#"
-                  className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                >
-                  Log in
-                </a>
+              <Link to="/login"  className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Log In</Link>
+
               </div>
             </div>
           </div>

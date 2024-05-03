@@ -20,6 +20,7 @@ import ProductUploadForm from './components/Testing/UploadProduct';
 import OrdersList from './pages/orders/OrdersList';
 import ImageUploadForm from './components/Testing/UploadProduct';
 import Error from './pages/error/error';
+import CheckoutPage from './pages/checkout/checkout';
 
 function App() {
   // return (
@@ -57,6 +58,7 @@ function App() {
         <Route path="orders" element={<OrdersList />} />
         <Route path="login" element={<Login />} />
         <Route path="home" element={<Home />} />
+        <Route path="checkout" element={<CheckoutPage />} />
         <Route path="*" element={<Error />} />
       </Route>
     </Routes>

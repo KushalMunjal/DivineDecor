@@ -2,31 +2,59 @@ import React, { useState } from 'react';
 import { Fragment } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate hook
+import {loadStripe} from '@stripe/stripe-js';
 
-const OrdersList = ({ product }) => {
-  const [open, setOpen] = useState(true);
+const OrdersList = ({ product, open, setOpen }) => {
   const [quantity, setQuantity] = useState(1);
+  const navigate = useNavigate();
+  const [totalPrice, setTotalPrice] = useState(product.price); // Initialize total price with the product price
 
-  // Function to handle closing the dialog
   const handleClose = () => {
     setOpen(false);
   };
 
-  // Function to handle the "Checkout" button click
-  const handleCheckout = () => {
-    // Handle the logic for checking out the product
-    console.log('Checkout:', product);
+  const handleCheckout = async () => {
+    // Initialize Stripe with your publishable key
+    const stripe = await loadStripe('pk_live_51OKApbSA6hMk1QnQZA6vy6KGdFGXxXz5m82tZMJjT15tJY3GZKNwo6Y7stpBqCQ5bgcuVzzOym96WQcMNo6KnB0N00w9t9340R');
+
+    // Call the Stripe checkout session endpoint to create a new checkout session
+    const response = await fetch('https://divinedecorbackend.onrender.com/api/create-checkout-session', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        product: product, // Pass the selected product data
+        quantity: quantity,
+      }),
+    });
+
+    const session = await response.json();
+
+    // Redirect to Stripe checkout page
+    const { error } = await stripe.redirectToCheckout({
+      sessionId: session.id,
+    });
+
+    if (error) {
+      console.error('Error redirecting to checkout:', error);
+    }
   };
 
-  // Function to handle continuing shopping
   const handleContinueShopping = () => {
-    setOpen(false); // Close the sidebar
+    setOpen(false);
   };
 
-  // Function to handle removing the product from the order list
   const handleRemove = () => {
-    // Handle the logic for removing the product
     console.log('Product removed:', product);
+  };
+
+  const handleQuantityChange = (e) => {
+    const newQuantity = parseInt(e.target.value);
+    setQuantity(newQuantity);
+    // Update the total price based on the new quantity
+    setTotalPrice(product.price * newQuantity);
   };
 
   return (
@@ -77,13 +105,13 @@ const OrdersList = ({ product }) => {
                       <div className="mt-8 flex items-center justify-between">
                         <div className="flex">
                           <img
-                            src={product.imageSrc}
-                            alt={product.imageAlt}
+                            src={product.imageUrl}
+                            alt={product.name}
                             className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200"
                           />
                           <div className="ml-4">
                             <h3 className="text-lg font-medium text-gray-900">{product.name}</h3>
-                            <p className="text-sm text-gray-500">Price: ${product.price}</p>
+                            <p className="text-sm text-gray-500">Price: ₹{totalPrice}</p> {/* Display total price */}
                           </div>
                         </div>
                         <div className="flex items-center">
@@ -91,7 +119,7 @@ const OrdersList = ({ product }) => {
                             type="number"
                             min="1"
                             value={quantity}
-                            onChange={(e) => setQuantity(parseInt(e.target.value))}
+                            onChange={handleQuantityChange} // Call handleQuantityChange on input change
                             className="appearance-none w-16 px-3 py-1 border border-gray-300 rounded-md text-sm leading-5 text-gray-900 focus:outline-none focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                           />
                           <button
