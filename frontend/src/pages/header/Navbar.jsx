@@ -171,15 +171,9 @@ console.log('Is logged in:', isLoggedIn());
             </Transition>
           </Popover>
 
-          <a href="#" className="text-sm font-semibold leading-6 text-white">
-            <Link to="/displayprod">Features</Link>
-          </a>
-          <a href="#" className="text-sm font-semibold leading-6 text-white">
-          <Link to="/products">Products</Link>
-          </a>
-          <a href="#" className="text-sm font-semibold leading-6 text-white">
-          <Link to="/about">About</Link>
-          </a>
+            <Link to="/displayprod" className="text-sm font-semibold leading-6 text-white">Features</Link>
+          <Link to="/products" className="text-sm font-semibold leading-6 text-white">Products</Link>
+          <Link to="/about" className="text-sm font-semibold leading-6 text-white">About</Link>
           <SearchBar />
           <Cart />
         </Popover.Group>
@@ -250,31 +244,14 @@ console.log('Is logged in:', isLoggedIn());
                     </>
                   )}
                 </Disclosure>
-                <a
-                  href="#"
-                  className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                >
-                  Features
-                </a>
-                <a
-                  href="#"
-                  className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                >
-                  Marketplace
-                </a>
-                <a
-                  href="#"
-                  className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                >
-                </a>
+                <Link to="/displayprod"  className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Features</Link>
+          <Link to="/products"  className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Products</Link>
+          <Link to="/about"  className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">About</Link>
+
               </div>
               <div className="py-6">
-                <a
-                  href="#"
-                  className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                >
-                  Log in
-                </a>
+              <Link to="/login"  className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Log In</Link>
+
               </div>
             </div>
           </div>
