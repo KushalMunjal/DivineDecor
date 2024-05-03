@@ -4,7 +4,7 @@ import axios from 'axios';
 const ImageUploadForm = () => {
   const [formData, setFormData] = useState({
     name: '',
-    category: '',
+    desc: '',
     price: '',
     image: null
   });
@@ -13,13 +13,8 @@ const ImageUploadForm = () => {
   useEffect(() => {
     const fetchImages = async () => {
       try {
-        const response = await axios.get('http://localhost/api/products/all');
-        // Ensure that the response data is an array before setting it
-        if (Array.isArray(response.data)) {
-          setItems(response.data);
-        } else {
-          console.error('Response data is not an array:', response.data);
-        }
+        const response = await axios.get('http://localhost:5000/api/products/all');
+        setItems(response.data);
       } catch (error) {
         console.error('Error fetching images:', error.message);
       }
@@ -47,23 +42,18 @@ const ImageUploadForm = () => {
 
     const formDataToSend = new FormData();
     formDataToSend.append('name', formData.name);
-    formDataToSend.append('category', formData.category);
+    formDataToSend.append('desc', formData.desc);
     formDataToSend.append('price', formData.price);
     formDataToSend.append('image', formData.image);
 
     try {
-      const response = await axios.post('/api/products/add', formDataToSend, {
+      const response = await axios.post('http://localhost:5000/api/products/add', formDataToSend, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
       });
       console.log('Image uploaded successfully:', response.data);
-      // Ensure that items is an array before adding to it
-      if (Array.isArray(items)) {
-        setItems([...items, response.data]);
-      } else {
-        console.error('Items is not an array:', items);
-      }
+      setItems([...items, response.data]);
     } catch (error) {
       console.error('Error uploading image:', error.message);
     }
@@ -88,11 +78,11 @@ const ImageUploadForm = () => {
             />
           </div>
           <div>
-            <label htmlFor="cat">Category</label>
+            <label htmlFor="desc">Category</label>
             <textarea
-              id="category"
-              name="category"
-              value={formData.category}
+              id="desc"
+              name="desc"
+              value={formData.desc}
               rows="2"
               placeholder="Category"
               onChange={handleChange}
@@ -125,18 +115,37 @@ const ImageUploadForm = () => {
 
       <h1>Uploaded Images</h1>
       <div>
-        {Array.isArray(items) && items.map((image, index) => (
-          <div key={index}>
-            <div>
-              <img src={`data:image/${image.img.contentType};base64,${image.img.data}`} alt={image.name} />
-              <div>
-                <h5>{image.name}</h5>
-                <p>{image.category}</p>
-                <p>{image.price}</p>
-              </div>
-            </div>
-          </div>
-        ))}
+      {Array.isArray(items) && items.map((image, index) => {
+  console.log('Image data:', {
+    type: image.img.contentType,
+    data: arrayBufferToBase64(image.img.data)
+  });
+  
+  function arrayBufferToBase64(buffer) {
+    let binary = '';
+    const bytes = new Uint8Array(buffer);
+    const len = bytes.byteLength;
+    for (let i = 0; i < len; i++) {
+      binary += String.fromCharCode(bytes[i]);
+    }
+    return window.btoa(binary);
+  }
+  
+  return (
+    <div key={index}>
+      <div>
+        <img src={`data:image/${image.img.contentType};base64,${arrayBufferToBase64(image.img.data)}`} alt={image.name} />
+        <div>
+          <h5>{image.name}</h5>
+          <p>{image.category}</p>
+          <p>{image.price}</p>
+        </div>
+      </div>
+    </div>
+  );
+})}
+
+
       </div>
     </div>
   );

@@ -1,5 +1,5 @@
 import { Link, Outlet } from 'react-router-dom'
-import { Fragment, useState } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import { Dialog, Disclosure, Popover, Transition } from '@headlessui/react'
 import {
     ArrowPathIcon,
@@ -33,6 +33,68 @@ function classNames(...classes) {
 export default function Example() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [cartCount, setCartCount] = useState(0); // State to hold the count of items in the cart
+  const [userData, setUserData] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      // Fetch user data if user is logged in
+      if (isLoggedIn()) {
+        try {
+          const response = await fetch('http://localhost:5000/api/user', {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem('token')}`, // Send JWT token in the request headers
+            },
+          });
+          if (response.ok) {
+            const userData = await response.json();
+            setUserData(userData);
+          } else {
+            console.error('Failed to fetch user data:', response.statusText);
+          }
+        } catch (error) {
+          console.error('Error fetching user data:', error);
+        }
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const login = async () => {
+  try {
+    const response = await fetch('http://localhost:5000/api/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(req.body),
+    });
+
+    if (response.ok) {
+      const userData = await response.json();
+      setUserData(userData);
+      localStorage.setItem('isLoggedIn', 'true'); // Set isLoggedIn to true in localStorage
+    } else {
+      console.error('Login failed:', response.statusText);
+    }
+  } catch (error) {
+    console.error('Error logging in:', error);
+  }
+};
+
+const logout = () => {
+  setUserData(null);
+  localStorage.removeItem('isLoggedIn'); // Remove isLoggedIn from localStorage on logout
+};
+
+const isLoggedIn = () => {
+  return localStorage.getItem('isLoggedIn') === 'true';
+  console.log('Is logged in:', loggedIn);
+  return loggedIn;
+};
+
+
+console.log('Is logged in:', isLoggedIn());
 
   const addToCart = () => {
     setCartCount(prevCount => prevCount + 1);
@@ -123,10 +185,20 @@ export default function Example() {
         
 
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
+        {isLoggedIn() ? (
+          <div className="flex items-center text-white">
+            <p className="text-sm font-semibold leading-6">Hi, {userData.name}</p>
+            <button className="ml-4 text-sm font-semibold leading-6" onClick={logout}>
+              Logout
+            </button>
+          </div>
+        ) : (
           <a href="#" className="text-sm font-semibold leading-6 text-white">
-          <Link to="/login">Log In</Link> <span aria-hidden="true">&rarr;</span>
+            <button className="text-sm font-semibold leading-6" onClick={login}>Log In</button>
+            <span aria-hidden="true">&rarr;</span>
           </a>
-        </div>
+        )}
+      </div>
       </nav>
       <Dialog as="div" className="lg:hidden" open={mobileMenuOpen} onClose={setMobileMenuOpen}>
         <div className="fixed inset-0 z-10" />

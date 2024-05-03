@@ -90,16 +90,17 @@ const ProductList = () => {
             <div className="p-4 flex flex-col justify-between">
               <h5 className="text-gray-900 text-xl font-medium mb-2">{product.name}</h5>
               <div className="flex items-center text-sm text-gray-700">
-                <svg fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24" className="w-4 h-4 mr-1">
-                  <path d="M9 0h3v24H9V0zM0 0h24v24H0V0z" />
-                </svg>
+              <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" class="w-4 h-4 mr-1">
+  <path d="M5 13l4 4L19 7" />
+</svg>
+
                 <span>{product.reviews} reviews</span>
               </div>
-              <span className="text-gray-900 font-bold mt-2">${product.price}</span>
+              <span className="text-gray-900 font-bold mt-2">₹{product.price}</span>
               <div className="flex mt-4">
                 <Link
                   to={`/products/${product.id}`} // Linking to the product details page with product id
-                  className="flex-1 bg-green-500 text-white px-4 py-2 rounded-md ml-2 hover:bg-green-600"
+                  className="flex-1 bg-blue-500 text-white px-4 py-2 rounded-md ml-2 hover:bg-green-600"
                 >
                   View Details
                 </Link>

@@ -19,8 +19,8 @@ exports.createProduct = async (req, res) => {
     }
 
     // Read image file and store its data in the product document
-    const imageData = fs.readFileSync(req.file.path);
-
+    // const imageData = fs.readFileSync(req.file.path);
+    const imageData = fs.readFileSync(req.file.path, { encoding: 'base64' });
     // Create new product instance with extracted details
     const product = new Product({ name, category, price, image: imageData });
 

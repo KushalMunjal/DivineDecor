@@ -1,27 +1,27 @@
 // category
 const category = [
     {
-      image: "https://cdn-icons-png.flaticon.com/256/4359/4359963.png",
+      image: "https://i.imgur.com/3peBnUp.png",
       name: "divine",
     },
     {
-      image: "https://cdn-icons-png.flaticon.com/256/11833/11833323.png",
+      image: "https://i.imgur.com/2pu8j7h.png",
       name: "ancient",
     },
     {
-      image: "https://cdn-icons-png.flaticon.com/256/8174/8174424.png",
+      image: "https://i.imgur.com/92Aazxz.png",
       name: "freedom fighter",
     },
     {
-      image: "https://cdn-icons-png.flaticon.com/256/7648/7648246.png",
+      image: "https://i.imgur.com/lqi34N1.png",
       name: "animal",
     },
     {
-      image: "https://cdn-icons-png.flaticon.com/256/12142/12142416.png",
+      image: "https://i.imgur.com/SAsaxdr.png",
       name: "pillars",
     },
     {
-      image: "https://cdn-icons-png.flaticon.com/256/10686/10686553.png",
+      image: "https://i.imgur.com/n4g9Jap.png",
       name: "mandaps",
     },
   ];

@@ -20,6 +20,7 @@ app.use(cors());
 // Middleware
 app.use(express.json());
 app.set("view engine", "ejs");
+app.use(express.static('uploads'));
 
 //Image test mongodb
 var multer = require('multer');
@@ -37,17 +38,17 @@ var upload = multer({ storage: storage });
  
 app.get('/api/products/all', (req, res) => {
     imgSchema.find({})
-    .then((data, err)=>{
-        if(err){
-            console.log(err);
-        }
-        res.render('imagepage',{items: data})
+    .then((data) => {  // Remove the 'err' argument
+        res.json(data); // Return JSON response instead of rendering HTML
     })
+    .catch((err) => {
+        console.log(err);
+        res.status(500).json({ error: 'Internal Server Error' }); // Handle error
+    });
 });
- 
+
  
 app.post('/api/products/add', upload.single('image'), (req, res, next) => {
- 
     var obj = {
         name: req.body.name,
         desc: req.body.desc,
@@ -55,18 +56,17 @@ app.post('/api/products/add', upload.single('image'), (req, res, next) => {
             data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
             contentType: 'image/png'
         }
-    }
+    };
     imgSchema.create(obj)
-    .then ((err, item) => {
-        if (err) {
-            console.log(err);
-        }
-        else {
-            // item.save();
-            res.redirect('/api/products/add');
-        }
+    .then((item) => {  // Remove the 'err' argument
+        res.status(201).json(item); // Return JSON response with the newly created item
+    })
+    .catch((err) => {
+        console.log(err);
+        res.status(500).json({ error: 'Internal Server Error' }); // Handle error
     });
 });
+
 
 // Routes
 app.use('/api', bookMurtiRoutes);
