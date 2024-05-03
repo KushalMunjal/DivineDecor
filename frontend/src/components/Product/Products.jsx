@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
-import { AiOutlineSearch } from 'react-icons/ai'; // Importing search icon from react-icons library
-import dummyData from './dummydata'; // Importing dummy data here
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import Category from "../Category/Category";
 import { Link } from 'react-router-dom';
 
@@ -8,7 +7,21 @@ const ProductList = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedFilter, setSelectedFilter] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
+  const [products, setProducts] = useState([]);
   const productsPerPage = 10;
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await axios.get('http://localhost:5000/api/products/all');
+        setProducts(response.data);
+      } catch (error) {
+        console.error('Error fetching products:', error.message);
+      }
+    };
+
+    fetchProducts();
+  }, []);
 
   const handleSearchInputChange = (event) => {
     setSearchQuery(event.target.value);
@@ -21,24 +34,19 @@ const ProductList = () => {
   };
 
   const applyFilter = (product) => {
-    if (selectedFilter === 'price-low') {
-      return product.price <= 50;
-    } else if (selectedFilter === 'price-medium') {
-      return product.price > 50 && product.price <= 100;
-    } else if (selectedFilter === 'price-high') {
-      return product.price > 100;
-    } else if (selectedFilter === 'reviews-low') {
-      return product.reviews <= 5;
-    } else if (selectedFilter === 'reviews-medium') {
-      return product.reviews > 5 && product.reviews <= 10;
-    } else if (selectedFilter === 'reviews-high') {
-      return product.reviews > 10;
-    } else {
-      return true;
+    switch (selectedFilter) {
+      case 'price-low':
+        return product.price <= 50;
+      case 'price-medium':
+        return product.price > 50 && product.price <= 100;
+      case 'price-high':
+        return product.price > 100;
+      default:
+        return true;
     }
   };
 
-  const filteredProducts = dummyData.filter((product) =>
+  const filteredProducts = products.filter((product) =>
     product.name.toLowerCase().includes(searchQuery.toLowerCase()) && applyFilter(product)
   );
 
@@ -53,19 +61,10 @@ const ProductList = () => {
     <div className="max-w-screen-xl mx-auto px-4">
       <div className="flex items-center justify-between w-full max-w-lg mx-auto my-4">
         <div className="relative flex items-center w-full max-w-[calc(50%-1rem)]">
-          {/* <span className="absolute inset-y-0 left-0 pl-3 flex items-center">
-            <AiOutlineSearch className="text-gray-500" />
-          </span> */}
-          {/* <input
-            type="text"
-            placeholder="Search products..."
-            className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md"
-            value={searchQuery}
-            onChange={handleSearchInputChange}
-          /> */}
         </div>
         <div className="relative">
           <label htmlFor="filter" className="sr-only">Filter:</label>
+          {/* Filter select */}
           <select
             id="filter"
             className="px-2 py-2 border border-gray-300 rounded-md"
@@ -76,30 +75,30 @@ const ProductList = () => {
             <option value="price-low">Price: Low to High</option>
             <option value="price-medium">Price: Medium</option>
             <option value="price-high">Price: High to Low</option>
-            <option value="reviews-low">Reviews: Low to High</option>
-            <option value="reviews-medium">Reviews: Medium</option>
-            <option value="reviews-high">Reviews: High to Low</option>
           </select>
         </div>
       </div>
+      {/* Category component */}
       <Category />
+      {/* Product grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
         {currentProducts.map((product, index) => (
           <div key={index} className="flex flex-col rounded-lg shadow-md overflow-hidden border border-gray-200 hover:shadow-lg transition duration-300">
-            <div className="w-full h-64 bg-cover" style={{ backgroundImage: `url(${product.image})` }} />
+            {/* Product image */}
+            <div className="w-full h-64 bg-cover" style={{ backgroundImage: `url(${product.imageUrl})` }} />
             <div className="p-4 flex flex-col justify-between">
+              {/* Product name */}
               <h5 className="text-gray-900 text-xl font-medium mb-2">{product.name}</h5>
               <div className="flex items-center text-sm text-gray-700">
-              <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" class="w-4 h-4 mr-1">
-  <path d="M5 13l4 4L19 7" />
-</svg>
-
+                {/* Product reviews */}
                 <span>{product.reviews} reviews</span>
               </div>
+              {/* Product price */}
               <span className="text-gray-900 font-bold mt-2">₹{product.price}</span>
               <div className="flex mt-4">
+                {/* View details button */}
                 <Link
-                  to={`/products/${product.id}`} // Linking to the product details page with product id
+                  to={`/products/${product.id}`}
                   className="flex-1 bg-blue-500 text-white px-4 py-2 rounded-md ml-2 hover:bg-green-600"
                 >
                   View Details
@@ -109,6 +108,7 @@ const ProductList = () => {
           </div>
         ))}
       </div>
+      {/* Pagination */}
       <div className="flex justify-between items-center mt-4">
         <p className="text-sm text-gray-700">
           Showing {indexOfFirstProduct + 1} to {Math.min(indexOfLastProduct, filteredProducts.length)} of {filteredProducts.length} results

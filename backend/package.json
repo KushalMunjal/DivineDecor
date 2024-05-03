@@ -4,7 +4,7 @@
   "description": "A project for business related to Murti(Idol) & Mandap(Wedding arch)",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon server.js",
+    "start": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Keval, Kushal",
