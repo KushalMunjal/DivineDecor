@@ -19,7 +19,7 @@ const OrdersList = ({ product, open, setOpen }) => {
     const stripe = await loadStripe('pk_live_51OKApbSA6hMk1QnQZA6vy6KGdFGXxXz5m82tZMJjT15tJY3GZKNwo6Y7stpBqCQ5bgcuVzzOym96WQcMNo6KnB0N00w9t9340R');
 
     // Call the Stripe checkout session endpoint to create a new checkout session
-    const response = await fetch('http://localhost:5000/api/create-checkout-session', {
+    const response = await fetch('https://divinedecorbackend.onrender.com/api/create-checkout-session', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
