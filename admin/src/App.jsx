@@ -18,6 +18,7 @@ import Products from './pages/Catalog/Products';
 import Categories from './pages/Catalog/Categories';
 import AddProducts from './pages/Catalog/AddProducts';
 import AddCategory from './pages/Catalog/AddCategory';
+import User from './pages/User Management/User';
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -51,6 +52,15 @@ function App() {
             <>
               <PageTitle title="Catalog" />
               <Products />
+            </>
+          }
+        />
+        <Route
+          path="/usermanagement/users"
+          element={
+            <>
+              <PageTitle title="User Management" />
+              <User />
             </>
           }
         />

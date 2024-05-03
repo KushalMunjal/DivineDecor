@@ -31,7 +31,7 @@
   }
 }
 
-/* third-party libraries CSS */
+
 
 .tableCheckbox:checked ~ div span {
   @apply opacity-100;
