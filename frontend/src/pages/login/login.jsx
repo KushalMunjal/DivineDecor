@@ -65,7 +65,7 @@ export default function Login() {
   
     if (isLogin) {
       try {
-        const response = await axios.post('http://localhost:5000/api/auth/login', {
+        const response = await axios.post('https://divinedecorbackend.onrender.com/api/auth/login', {
           email: formData.email,
           password: formData.password
         });
@@ -76,7 +76,7 @@ export default function Login() {
       }
     } else {
       try {
-        const response = await axios.post('http://localhost:5000/api/auth/signup', {
+        const response = await axios.post('https://divinedecorbackend.onrender.com/api/auth/signup', {
           name: formData.name,
           email: formData.email,
           password: formData.password

@@ -13,7 +13,7 @@ const ProductList = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/products/all');
+        const response = await axios.get('https://divinedecorbackend.onrender.com/api/products/all');
         setProducts(response.data);
       } catch (error) {
         console.error('Error fetching products:', error.message);
@@ -98,7 +98,7 @@ const ProductList = () => {
               <div className="flex mt-4">
                 {/* View details button */}
                 <Link
-                  to={`/products/${product.id}`}
+                  to={`/products/${product.productId}`}
                   className="flex-1 bg-blue-500 text-white px-4 py-2 rounded-md ml-2 hover:bg-green-600"
                 >
                   View Details
