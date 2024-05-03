@@ -2,30 +2,26 @@ import React, { useState } from 'react';
 import { Fragment } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate hook
 
-const OrdersList = ({ product }) => {
-  const [open, setOpen] = useState(true);
+const OrdersList = ({ product, open, setOpen }) => {
   const [quantity, setQuantity] = useState(1);
+  const navigate = useNavigate();
 
-  // Function to handle closing the dialog
   const handleClose = () => {
     setOpen(false);
   };
 
-  // Function to handle the "Checkout" button click
   const handleCheckout = () => {
-    // Handle the logic for checking out the product
-    console.log('Checkout:', product);
+    // Redirect to checkout page
+    navigate('/checkout', { state: { product: product } });
   };
 
-  // Function to handle continuing shopping
   const handleContinueShopping = () => {
-    setOpen(false); // Close the sidebar
+    setOpen(false);
   };
 
-  // Function to handle removing the product from the order list
   const handleRemove = () => {
-    // Handle the logic for removing the product
     console.log('Product removed:', product);
   };
 
@@ -77,13 +73,13 @@ const OrdersList = ({ product }) => {
                       <div className="mt-8 flex items-center justify-between">
                         <div className="flex">
                           <img
-                            src={product.imageSrc}
-                            alt={product.imageAlt}
+                            src={product.imageUrl}
+                            alt={product.name}
                             className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200"
                           />
                           <div className="ml-4">
                             <h3 className="text-lg font-medium text-gray-900">{product.name}</h3>
-                            <p className="text-sm text-gray-500">Price: ${product.price}</p>
+                            <p className="text-sm text-gray-500">Price: ₹{product.price}</p>
                           </div>
                         </div>
                         <div className="flex items-center">
