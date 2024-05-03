@@ -41,6 +41,15 @@ function App() {
           index
           element={
             <>
+              <PageTitle title="Sign In" />
+              <SignIn />
+            </>
+          }
+        />
+        <Route
+          path="/ecommerce"
+          element={
+            <>
               <PageTitle title="DivineDecor Dashboard" />
               <ECommerce />
             </>

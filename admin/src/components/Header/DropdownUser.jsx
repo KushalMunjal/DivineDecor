@@ -1,14 +1,22 @@
 import { useEffect, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import UserOne from '../../images/user/user-01.png';
 
 const DropdownUser = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
-
+  const [username, setUsername] = useState('');
+  const navigate = useNavigate();
   const trigger = useRef(null);
   const dropdown = useRef(null);
 
+  useEffect(() => {
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      const userData = JSON.parse(storedUser);
+      setUsername(userData.username);
+    }
+  }, []);
   // close on click outside
   useEffect(() => {
     const clickHandler = ({ target }) => {
@@ -34,6 +42,10 @@ const DropdownUser = () => {
     document.addEventListener('keydown', keyHandler);
     return () => document.removeEventListener('keydown', keyHandler);
   });
+  const handleLogout = () => {
+    localStorage.clear();
+    navigate("/auth/signin");
+  };
 
   return (
     <div className="relative">
@@ -45,7 +57,7 @@ const DropdownUser = () => {
       >
         <span className="hidden text-right lg:block">
           <span className="block text-sm font-medium text-black dark:text-white">
-            Super Admin
+          {username ? username : 'Login In'}
           </span>
           <span className="block text-xs">Owner</span>
         </span>
@@ -153,7 +165,9 @@ const DropdownUser = () => {
             </Link>
           </li>
         </ul>
-        <button className="flex items-center gap-3.5 px-6 py-4 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base">
+        <button 
+        onClick={handleLogout}
+        className="flex items-center gap-3.5 px-6 py-4 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base">
           <svg
             className="fill-current"
             width="22"

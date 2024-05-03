@@ -59,7 +59,6 @@ public class UserService {
             userMap.put("email", user.getEmail());
             userMap.put("roleId", user.getRole().getRoleId());
             userMap.put("contactNo", user.getContactNo());
-            userMap.put("officeLocation", user.getOfficeLocation());
             userMap.put("status", user.getStatus());
             return userMap;
         }).collect(Collectors.toList());

@@ -40,10 +40,6 @@ public class UserDocument {
 
     @Field("contactNo")
     private String contactNo;
-
-    @Field("officeLocation")
-    private String officeLocation;
-
     @Field("status")
     private String status = "active";
 
@@ -59,7 +55,6 @@ public class UserDocument {
                 .add("password='" + password + "'")
                 .add("role=" + role)
                 .add("contactNo='" + contactNo + "'")
-                .add("officeLocation='" + officeLocation + "'")
                 .add("status=" + status)
                 .toString();
     }
@@ -139,14 +134,6 @@ public class UserDocument {
 
     public void setContactNo(String contactNo) {
         this.contactNo = contactNo;
-    }
-
-    public String getOfficeLocation() {
-        return officeLocation;
-    }
-
-    public void setOfficeLocation(String officeLocation) {
-        this.officeLocation = officeLocation;
     }
 
     public String getStatus() {

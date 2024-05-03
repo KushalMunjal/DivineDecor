@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.*;
 
 @RestController
-@RequestMapping("/api/user")
+@RequestMapping("/auth")
 public class UserController {
 
     @Autowired
@@ -112,9 +112,6 @@ public class UserController {
             if (updates.getContactNo() != null) {
                 existingUserData.setContactNo(updates.getContactNo());
             }
-            if (updates.getOfficeLocation() != null) {
-                existingUserData.setOfficeLocation(updates.getOfficeLocation());
-            }
             if (updates.getRoleId() != null) {
                 existingUserData.setRoleId(updates.getRoleId());
             }
@@ -161,7 +158,6 @@ public class UserController {
         }
 
         responseBody.put("contactNo", userDocument.getContactNo());
-        responseBody.put("officeLocation", userDocument.getOfficeLocation());
         responseBody.put("status", userDocument.getStatus());
         return responseBody;
     }
