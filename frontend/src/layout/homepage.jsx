@@ -21,6 +21,12 @@
             <li>
                 <Link to="/login"></Link>
             </li>
+            <li>
+                <Link to="/bookmandap"></Link>
+            </li>
+            <li>
+                <Link to="/bookmurti"></Link>
+            </li>
             </ul>
         </nav>
         <Outlet />
