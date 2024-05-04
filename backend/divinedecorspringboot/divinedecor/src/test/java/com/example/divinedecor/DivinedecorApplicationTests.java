@@ -1,10 +1,10 @@
-package com.example.divinedecorspringboot;
+package com.example.divinedecor;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class DivinedecorSpringbootApplicationTests {
+class DivinedecorApplicationTests {
 
 	@Test
 	void contextLoads() {

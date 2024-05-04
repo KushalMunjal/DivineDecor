@@ -1,99 +1,93 @@
-import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
 import DefaultLayout from '../../layout/DefaultLayout';
-import React, { useState } from 'react';
-import { classNames } from 'primereact/utils';
+import React, { useState, useEffect, useRef } from 'react';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
-import { InputText } from 'primereact/inputtext';
-import { IconField } from 'primereact/iconfield';
-import { InputIcon } from 'primereact/inputicon';
-import { Dropdown } from 'primereact/dropdown';
-import { MultiSelect } from 'primereact/multiselect';
-import { Tag } from 'primereact/tag';
-import { TriStateCheckbox } from 'primereact/tristatecheckbox';
+import { Toast } from 'primereact/toast';
+import { Button } from 'primereact/button';
+import { Dialog } from 'primereact/dialog';
+import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
 
 const Categories = () => {
-    // Replace this static data with your own
-    const customers = [
-        { id: 1, name: 'Divine', country: { name: '', code: 'C1' }, representative: { name: 'Representative 1', image: 'representative1.png' }, status: 'in-stock', verified: true },
-        { id: 2, name: 'Freedom Fighter', country: { name: '', code: 'C2' }, representative: { name: 'Representative 2', image: 'representative2.png' }, status: 'Outof-stock', verified: false },
-        { id: 1, name: 'Ancient', country: { name: '', code: 'C1' }, representative: { name: 'Representative 1', image: 'representative1.png' }, status: 'in-stock', verified: true },
-        { id: 2, name: 'Animal', country: { name: '', code: 'C2' }, representative: { name: 'Representative 2', image: 'representative2.png' }, status: 'Outof-stock', verified: false },
-        { id: 1, name: 'Pillars', country: { name: '', code: 'C1' }, representative: { name: 'Representative 1', image: 'representative1.png' }, status: 'in-stock', verified: true },
-        { id: 2, name: 'Mandaps', country: { name: '', code: 'C2' }, representative: { name: 'Representative 2', image: 'representative2.png' }, status: 'Outof-stock', verified: false },
-    ];
+    const [products, setProducts] = useState([]);
+    const [productDialog, setProductDialog] = useState(false);
+    const [deleteProductDialog, setDeleteProductDialog] = useState(false);
+    const [deleteProductsDialog, setDeleteProductsDialog] = useState(false);
+    const [product, setProduct] = useState(null);
+    const [selectedProducts, setSelectedProducts] = useState([]);
+    const [submitted, setSubmitted] = useState(false);
+    const [globalFilter, setGlobalFilter] = useState('');
+    const toast = useRef(null);
+    const dt = useRef(null);
 
-    const [filters, setFilters] = useState({
-        global: { value: null },
-        name: { value: null },
-        'country.name': { value: null },
-        representative: { value: null },
-        status: { value: null },
-        verified: { value: null }
-    });
+    useEffect(() => {
+        fetchProductData();
+    }, []);
 
-    const [loading, setLoading] = useState(false);
-    const [globalFilterValue, setGlobalFilterValue] = useState('');
-
-    const onGlobalFilterChange = (e) => {
-        const value = e.target.value;
-        let _filters = { ...filters };
-        _filters['global'].value = value;
-        setFilters(_filters);
-        setGlobalFilterValue(value);
+    const fetchProductData = async () => {
+        try {
+            const response = await fetch('https://divinedecorbackend.onrender.com/api/products/all');
+            const data = await response.json();
+            setProducts(data);
+        } catch (error) {
+            console.error('Error fetching product data:', error);
+        }
     };
 
-    const renderHeader = () => {
-        return (
-            <div className="flex justify-content-end">
-                <IconField iconPosition="left">
-                    <InputIcon className="pi pi-search" />
-                    <InputText value={globalFilterValue} onChange={onGlobalFilterChange} placeholder="Keyword Search" />
-                </IconField>
-            </div>
-        );
+    const imageBodyTemplate = (rowData) => {
+        return <img src={rowData.imageUrl} alt={rowData.name} className="product-image" style={{ width: '64px', height: '64px' }} />;
     };
 
-    const countryBodyTemplate = (rowData) => {
-        return (
-            <div className="flex align-items-center gap-2">
-                <img alt="flag" src="https://primefaces.org/cdn/primereact/images/flag/flag_placeholder.png" className={`flag flag-${rowData.country.code}`} style={{ width: '24px' }} />
-                <span>{rowData.country.name}</span>
-            </div>
-        );
+    const priceBodyTemplate = (rowData) => {
+        return rowData.price.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
     };
 
-    const representativeBodyTemplate = (rowData) => {
-        const representative = rowData.representative;
-        return (
-            <div className="flex align-items-center gap-2">
-                <img alt={representative.name} src={`https://primefaces.org/cdn/primereact/images/avatar/${representative.image}`} width="32" />
-                <span>{representative.name}</span>
-            </div>
-        );
+    const ratingBodyTemplate = (rowData) => {
+        return rowData.rating;
     };
 
     const statusBodyTemplate = (rowData) => {
-        return <Tag value={rowData.status} />;
+        return rowData.status;
     };
 
-    const verifiedBodyTemplate = (rowData) => {
-        return <TriStateCheckbox value={rowData.verified} />;
+    const actionBodyTemplate = (rowData) => {
+        return (
+            <React.Fragment>
+                <Button icon="pi pi-pencil" rounded outlined className="mr-2" onClick={() => editProduct(rowData)} />
+                <Button icon="pi pi-trash" rounded outlined severity="danger" onClick={() => confirmDeleteProduct(rowData)} />
+            </React.Fragment>
+        );
     };
 
-    const header = renderHeader();
+    const header = (
+        <div className="flex flex-wrap gap-2 align-items-center justify-content-between">
+            <h4 className="m-0">Manage Products</h4>
+            <div>
+                <i className="pi pi-search mr-2"></i>
+                <input type="search" onInput={(e) => setGlobalFilter(e.target.value)} placeholder="Search..." />
+            </div>
+        </div>
+    );
 
     return (
         <DefaultLayout>
-            <Breadcrumb pageName="Categories" />
-            <div className="card">
-                <DataTable value={customers} paginator rows={10} dataKey="id" filters={filters} filterDisplay="row" loading={loading} globalFilterFields={['name', 'country.name', 'representative.name', 'status']} header={header} emptyMessage="No customers found.">
-                    <Column field="name" header="Category" filter filterPlaceholder="Search by Category" style={{ minWidth: '12rem' }} />
-                    <Column header="Category Type" filterField="country.name" style={{ minWidth: '12rem' }} body={countryBodyTemplate} filter filterPlaceholder="Search by Category type" />
-                    <Column header="Agent" filterField="representative" showFilterMenu={false} filterMenuStyle={{ width: '14rem' }} style={{ minWidth: '14rem' }} body={representativeBodyTemplate} />
-                    <Column field="status" header="Status" showFilterMenu={false} filterMenuStyle={{ width: '14rem' }} style={{ minWidth: '12rem' }} body={statusBodyTemplate} />
-                    <Column field="verified" header="Verified" dataType="boolean" style={{ minWidth: '6rem' }} body={verifiedBodyTemplate} />
-                </DataTable>
+        <Breadcrumb pageName="Categories"/>
+            <div>
+                <Toast ref={toast} />
+                <div className="card">
+                    <DataTable ref={dt} value={products} selection={selectedProducts} onSelectionChange={(e) => setSelectedProducts(e.value)}
+                        dataKey="_id" paginator rows={10} rowsPerPageOptions={[5, 10, 25]}
+                        paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
+                        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} products" globalFilter={globalFilter} header={header} className="p-datatable-dark">
+                        <Column selectionMode="multiple" exportable={false} style={{ width: '3em' }}></Column>
+                        <Column field="name" header="Name" sortable style={{ minWidth: '16rem' }}></Column>
+                        <Column field="category" header="Category" sortable style={{ minWidth: '10rem' }}></Column>
+                        <Column field="price" header="Price" body={priceBodyTemplate} sortable style={{ minWidth: '8rem' }}></Column>
+                        <Column field="imageUrl" header="Image" body={imageBodyTemplate}></Column>
+                        <Column field="rating" header="Reviews" body={ratingBodyTemplate} sortable style={{ minWidth: '12rem' }}></Column>
+                        <Column field="status" header="Status" body={statusBodyTemplate} sortable style={{ minWidth: '12rem' }}></Column>
+                        <Column body={actionBodyTemplate} exportable={false} style={{ minWidth: '12rem' }}></Column>
+                    </DataTable>
+                </div>
             </div>
         </DefaultLayout>
     );
