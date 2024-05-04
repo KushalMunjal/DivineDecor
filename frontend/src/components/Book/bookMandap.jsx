@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const BookMandap = () => {
   const [formData, setFormData] = useState({
     name: '',
@@ -19,10 +20,29 @@ const BookMandap = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission logic here, such as sending data to a server
-    console.log(formData);
+
+    try {
+      const response = await fetch('https://divinedecorbackend.onrender.com/api/mandap/bookmandap', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        throw new Error('Booking failed');
+      }
+      toast.success('Booking successful');
+
+      // Handle success, you can redirect or show a success message
+      console.log('Booking successful');
+    } catch (error) {
+      toast.error('Booking failed. Please try again later.');
+      console.error('Error booking Mandap:', error.message);
+    }
   };
 
   return (
@@ -137,6 +157,7 @@ const BookMandap = () => {
           </button>
         </div>
       </form>
+      <ToastContainer />
     </div>
   );
 };

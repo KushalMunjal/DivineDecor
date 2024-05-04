@@ -2,6 +2,7 @@ const express = require('express');
 const connectDB = require('./config/db');
 const cors = require('cors'); // Import cors
 const bookMurtiRoutes = require('./src/routes/bookMurtiRoute');
+const bookMandapRoutes = require('./src/routes/bookMandapRoute');
 const errorHandler = require('./src/middlewares/errorHandler');
 const authRoutes = require('./src/routes/authRoute');
 const productRoutes= require('./src/routes/productRoute');
@@ -31,7 +32,8 @@ app.use(express.static('uploads'));
 
 
 // Routes
-app.use('/api/bookings/', bookMurtiRoutes);
+app.use('/api/murti/', bookMurtiRoutes);
+app.use('/api/mandap/', bookMandapRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/products', productRoutes);
 

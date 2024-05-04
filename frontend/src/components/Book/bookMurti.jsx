@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const BookMurti = () => {
   const [formData, setFormData] = useState({
     name: '',
@@ -22,9 +23,11 @@ const BookMurti = () => {
   const handleSubmit = async (e) => {  // Make the handleSubmit function asynchronous
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:5000/api/BookMurti', formData);  // Corrected endpoint URL
+      const response = await axios.post('https://divinedecorbackend.onrender.com/api/murti/BookMurti', formData);  // Corrected endpoint URL
+      toast.success('Booking successful');
       console.log('Form submitted successfully:', response.data);
     } catch (error) {
+      toast.error('Booking failed. Please try again later.');
       console.error('Error submitting form:', error);
     }
   };
@@ -130,6 +133,7 @@ const BookMurti = () => {
           </button>
         </div>
       </form>
+      <ToastContainer />
     </div>
   );
 };
