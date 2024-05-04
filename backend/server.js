@@ -31,7 +31,7 @@ app.use(express.static('uploads'));
 
 
 // Routes
-app.use('/api', bookMurtiRoutes);
+app.use('/api/bookings/', bookMurtiRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/products', productRoutes);
 
