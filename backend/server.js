@@ -54,7 +54,7 @@ app.post("/api/create-checkout-session", async (req, res) => {
   
     // Create checkout session with the line items
     const session = await stripe.checkout.sessions.create({
-      payment_method_types: ["card"],
+      payment_method_types: ["card","google_pay", "apple_pay"],
       line_items: lineItems,
       mode: "payment",
       success_url: "http://localhost:5000/success",
