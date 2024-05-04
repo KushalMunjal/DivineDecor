@@ -129,7 +129,7 @@ const isLoggedIn = () => {
         <div className="flex lg:flex-1">
           <a href="#" className="-m-1.5 p-1.5">
             <span className="sr-only">DivineDecor</span>
-            <img className="h-8 w-auto" src="" alt="" />
+            <img className="h-8 w-auto" src="https://i.imgur.com/GqJsw1p.png" alt="" />
             <link to='/home'></link>
           </a>
         </div>
