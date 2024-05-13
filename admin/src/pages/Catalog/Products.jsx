@@ -38,7 +38,7 @@ const Products = () => {
     };
 
     const priceBodyTemplate = (rowData) => {
-        return rowData.price.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+        return rowData.price.toLocaleString('en-IN', { style: 'currency', currency: 'INR' });
     };
 
     const ratingBodyTemplate = (rowData) => {

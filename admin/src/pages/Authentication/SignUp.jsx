@@ -165,7 +165,7 @@ const SignUp = () => {
         <div className="w-full border-stroke dark:border-strokedark xl:w-1/2 xl:border-l-2">
           <div className="w-full p-4 sm:p-12.5 xl:p-17.5">
             <h2 className="mb-9 text-2xl font-bold text-black dark:text-white sm:text-title-xl2">
-              Sign Up to Divine-Decor
+              Sign Up to Divine-Decor Admin
             </h2>
 
             <form onSubmit={handleSubmit}>
@@ -432,7 +432,7 @@ const SignUp = () => {
               </div>
 
 
-              <button 
+              {/* <button 
               type="submit"
               className="flex w-full items-center justify-center gap-3.5 rounded-lg border border-stroke bg-gray p-4 hover:bg-opacity-50 dark:border-strokedark dark:bg-meta-4 dark:hover:bg-opacity-50">
                 <span>
@@ -469,7 +469,7 @@ const SignUp = () => {
                   </svg>
                 </span>
                 Sign up with Google
-              </button>
+              </button> */}
 
               <div className="mt-6 text-center">
                 <p>

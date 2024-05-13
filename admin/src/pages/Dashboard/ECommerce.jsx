@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import CardDataStats from '../../components/CardDataStats';
 import ChartOne from '../../components/Charts/ChartOne';
 import ChartThree from '../../components/Charts/ChartThree';
@@ -9,10 +9,35 @@ import TableOne from '../../components/Tables/TableOne';
 import DefaultLayout from '../../layout/DefaultLayout';
 
 const ECommerce = () => {
+  const [mandapBookings, setMandapBookings] = useState(0);
+  const [murtiBookings, setMurtiBookings] = useState(0);
+  const [totalProducts, setTotalProducts] = useState(0);
+
+  useEffect(() => {
+      fetchData();
+  }, []);
+
+  const fetchData = async () => {
+      try {
+          const mandapResponse = await fetch('https://divinedecorbackend.onrender.com/api/mandap/getmandapbookings');
+          const murtiResponse = await fetch('https://divinedecorbackend.onrender.com/api/murti/getmurtibookings');
+          const productsResponse = await fetch('https://divinedecorbackend.onrender.com/api/products/all');
+
+          const mandapData = await mandapResponse.json();
+          const murtiData = await murtiResponse.json();
+          const productsData = await productsResponse.json();
+
+          setMandapBookings(mandapData.length);
+          setMurtiBookings(murtiData.length);
+          setTotalProducts(productsData.length);
+      } catch (error) {
+          console.error('Error fetching data:', error);
+      }
+  };
   return (
     <DefaultLayout>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-7.5">
-        <CardDataStats title="Total views" total="3.456K" rate="0.43%" levelUp>
+        <CardDataStats title="Total Mandap Bookings" total={mandapBookings} rate=" ">
           <svg
             className="fill-primary dark:fill-white"
             width="22"
@@ -31,7 +56,7 @@ const ECommerce = () => {
             />
           </svg>
         </CardDataStats>
-        <CardDataStats title="Total Profit" total="45,2K" rate="4.35%" levelUp>
+        <CardDataStats title="Total Murti Booking" total={murtiBookings} rate="" >
           <svg
             className="fill-primary dark:fill-white"
             width="20"
@@ -54,7 +79,7 @@ const ECommerce = () => {
             />
           </svg>
         </CardDataStats>
-        <CardDataStats title="Total Product" total="2.450" rate="2.59%" levelUp>
+        <CardDataStats title="Total Product" total={totalProducts} rate="" >
           <svg
             className="fill-primary dark:fill-white"
             width="22"
@@ -73,7 +98,7 @@ const ECommerce = () => {
             />
           </svg>
         </CardDataStats>
-        <CardDataStats title="Total Users" total="3.456" rate="0.95%" levelDown>
+        <CardDataStats title="Total Users" total="5" rate="" >
           <svg
             className="fill-primary dark:fill-white"
             width="22"

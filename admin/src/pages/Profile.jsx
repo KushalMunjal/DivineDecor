@@ -1,10 +1,19 @@
 import Breadcrumb from '../components/Breadcrumbs/Breadcrumb';
 import DefaultLayout from '../layout/DefaultLayout';
 import CoverOne from '../images/cover/cover-01.png';
-import userSix from '../images/user/user-06.png';
+import userSix from '../images/user/user.png';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 const Profile = () => {
+  const [username, setUsername] = useState('');
+  useEffect(() => {
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      const userData = JSON.parse(storedUser);
+      setUsername(userData.username);
+    }
+  }, []);
   return (
     <DefaultLayout>
       <Breadcrumb pageName="Profile" />
@@ -89,7 +98,7 @@ const Profile = () => {
           </div>
           <div className="mt-4">
             <h3 className="mb-1.5 text-2xl font-semibold text-black dark:text-white">
-              Divine Decor Admin
+              {username ? username : 'Login In'}
             </h3>
             <p className="font-medium">Owner</p>
             <div className="mx-auto mt-4.5 mb-5.5 grid max-w-94 grid-cols-1 rounded-md border border-stroke py-2.5 shadow-1 dark:border-strokedark dark:bg-[#37404F]">

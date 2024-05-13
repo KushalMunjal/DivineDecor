@@ -19,6 +19,8 @@ import Categories from './pages/Catalog/Categories';
 import AddProducts from './pages/Catalog/AddProducts';
 import AddCategory from './pages/Catalog/AddCategory';
 import User from './pages/User Management/User';
+import MurtiOrders from './pages/sales/MurtiOrders';
+import MandapOrders from './pages/sales/MandapOrders';
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -190,7 +192,26 @@ function App() {
             </>
           }
         />
+        <Route
+          path="/sales/murtibookings"
+          element={
+            <>
+              <PageTitle title="Sales" />
+              <MurtiOrders />
+            </>
+          }
+        />
+        <Route
+          path="/sales/mandapbookings"
+          element={
+            <>
+              <PageTitle title="Sales" />
+              <MandapOrders />
+            </>
+          }
+        />
       </Routes>
+      
     </>
   );
 }
