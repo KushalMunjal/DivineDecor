@@ -129,7 +129,7 @@ const isLoggedIn = () => {
         <div className="flex lg:flex-1">
           <a href="#" className="-m-1.5 p-1.5">
             <span className="sr-only">DivineDecor</span>
-            <img className="h-8 w-auto" src="" alt="" />
+            <img className="h-8 w-auto" src="https://i.imgur.com/GqJsw1p.png" alt="" />
             <link to='/home'></link>
           </a>
         </div>
@@ -247,7 +247,7 @@ const isLoggedIn = () => {
                   {({ open }) => (
                     <>
                       <Disclosure.Button className="flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">
-                        Product
+                        Bookings
                         <ChevronDownIcon
                           className={classNames(open ? 'rotate-180' : '', 'h-5 w-5 flex-none')}
                           aria-hidden="true"

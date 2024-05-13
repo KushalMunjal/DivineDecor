@@ -20,3 +20,12 @@ exports.bookMurti = async (req, res, next) => {
     next(error);
   }
 };
+
+exports.getMurtis = async (req, res, next) => {
+  try {
+    const murtis = await Murti.find();
+    res.status(200).json(murtis);
+  } catch (error) {
+    next(error);
+  }
+};
