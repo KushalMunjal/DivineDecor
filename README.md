@@ -1,5 +1,5 @@
 
-# Divine Decor
+# [Divine Decor]{https://divinedecor.devxkeval.tech/}
 
 Divine Decor is an innovative eCommerce platform specializing in the booking of mandaps and idols. Catering to various occasions such as weddings, festivals, and spiritual events, Divine Decor offers a wide selection of beautifully crafted mandaps and intricately designed idols. Customers can easily browse and book these essential elements for their ceremonies and celebrations, ensuring a seamless and enriching experience. Whether for grand occasions or personal home altars. 
 
